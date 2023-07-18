@@ -14,7 +14,7 @@ DIR_HEADERS		=	includes/
 
 # ---- Files ---- #
 
-HEADERS_LIST	=	philo
+HEADERS_LIST	=	philo.h
 
 SRCS_LIST		=	main.c
 
@@ -41,9 +41,6 @@ MKDIR			=	mkdir -p
 
 all				:	${OBJS} ${HEADERS}
 					make ${NAME}
-
-fsanitize		:
-					make all CFLAGS+="-fsanitize=address -g3"
 
 no_flags		:
 					make fclean

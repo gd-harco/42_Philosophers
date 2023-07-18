@@ -1,6 +1,6 @@
 # include "philo.h"
 
-static int	get_random_number(int max);
+static int	get_random(int max);
 static void	*store_function(void *p_data);
 static void	*client_function(void *p_data);
 
@@ -16,7 +16,8 @@ int main(void)
 		printf("Creation des thread client\n");
 		while (++i < NB_CLIENTS)
 		{
-			ret = pthread_create(store.thread_clients[i], NULL, client_function, (void *)i);
+			ret = pthread_create(&store.thread_clients[i], NULL,
+				client_function, (void *)i);
 			if (!ret)
 				printf("thread numero %d cree avec succes\n", i);
 			else
@@ -31,7 +32,7 @@ int main(void)
 	pthread_join(store.thread_store, NULL);
 }
 
-static int	get_random_number(int max)
+static int	get_random(int max)
 {
 	double	val;
 

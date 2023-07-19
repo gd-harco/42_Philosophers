@@ -17,13 +17,15 @@ typedef struct s_store
 {
 	int stock;
 
-	pthread_t thread_store;
-	pthread_t thread_clients [NB_CLIENTS];
+	pthread_t		thread_store;
+	pthread_t		thread_clients [NB_CLIENTS];
+	pthread_mutex_t	mutex_stock;
 }	t_store;
 
 static t_store store =
 {
 	.stock = INITIAL_STOCK,
+	.mutex_stock = PTHREAD_MUTEX_INITIALIZER,
 };
 
 #endif

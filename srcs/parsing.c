@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/21 14:43:12 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/07/21 14:43:13 by gd-harco         ###   ########lyon.fr   */
+/*   Created: 2023/07/21 14:43:17 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/07/21 14:43:21 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	parse_argv(int argc, char **argv, t_data *data)
 {
-	t_data	data;
-
-	if (argc < 5 || argc > 6)
-		printf(INVALID_ARGC);
-	parse_argv(argc, argv, &data);
-	return (EXIT_SUCCESS);
+	if (argc == 5)
+		data->nb_goal = ft_atoi(argv[5]);
+	else
+		data->nb_goal = -1;
+	data->nb_of_philo = ft_atoi(argv[1]);
+	data->ttd = ft_atoi(argv[2]);
+	data->tte = ft_atoi(argv[3]);
+	data->tts = ft_atoi(argv[4]);
 }

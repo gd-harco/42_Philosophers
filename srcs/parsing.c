@@ -14,10 +14,10 @@
 
 void	parse_argv(int argc, char **argv, t_data *data)
 {
-	if (argc == 5)
+	if (argc == 6)
 		data->nb_goal = ft_atoi(argv[5]);
 	else
-		data->nb_goal = -1;
+		data->nb_goal = 0;
 	data->nb_of_philo = ft_atoi(argv[1]);
 	data->ttd = ft_atoi(argv[2]);
 	data->tte = ft_atoi(argv[3]);

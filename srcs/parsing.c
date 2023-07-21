@@ -17,7 +17,7 @@ bool	check_minus(int argc, char **argv);
 /**
  * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.
  * Does not check for invalid input. exit if negative number.
- * doesn't do anything with philo and fork struct.
+ * Set philo and fork struct to NULL.
  * @param argc argument count
  * @param argv argument array
  * @param data pointer to data struct
@@ -37,6 +37,8 @@ void	parse_argv(int argc, char **argv, t_data *data)
 	data->ttd = ft_atoi(argv[2]);
 	data->tte = ft_atoi(argv[3]);
 	data->tts = ft_atoi(argv[4]);
+	data->forks = NULL;
+	data->philos = NULL;
 }
 
 /**
@@ -50,7 +52,7 @@ bool	check_minus(int argc, char **argv)
 	int	j;
 
 	i = 1;
-	while (i <= argc)
+	while (i < argc)
 	{
 		j = 0;
 		while (argv[i][j])

@@ -39,15 +39,16 @@ struct s_fork
 
 struct s_philo
 {
-	int		philo_id;
-	bool	is_alive;
-	size_t	time_until_death;
-	size_t	time_since_eat_start;
-	size_t	time_since_think_start;
-	size_t	time_since_sleep_start;
-	t_fork	*right_fork;
-	t_fork	*left_fork;
-	t_data	*data;
+	int			philo_id;
+	bool		is_alive;
+	pthread_t	thread;
+	size_t		time_until_death;
+	size_t		time_since_eat_start;
+	size_t		time_since_think_start;
+	size_t		time_since_sleep_start;
+	t_fork		*right_fork;
+	t_fork		*left_fork;
+	t_data		*data;
 };
 
 struct s_data
@@ -57,8 +58,8 @@ struct s_data
 	size_t	tte;
 	size_t	tts;
 	size_t	nb_goal;
-	t_fork	*forks;
-	t_philo	*philos;
+	t_fork	**forks;
+	t_philo	**philos;
 };
 
 //----------- Function -----------//
@@ -67,6 +68,9 @@ int		get_elapsed_time(struct timeval *initial_time);
 
 //########### PARSING_C ###########//
 void	parse_argv(int argc, char **argv, t_data *data);
+
+//########### THREAD_INIT_C ###########//
+int		init_philo_fork(t_data *data);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

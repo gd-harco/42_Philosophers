@@ -17,7 +17,11 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc < 5 || argc > 6)
+	{
 		printf(INVALID_ARGC);
+		exit(EXIT_FAILURE);
+	}
 	parse_argv(argc, argv, &data);
+	init_philo_fork(&data);
 	return (EXIT_SUCCESS);
 }

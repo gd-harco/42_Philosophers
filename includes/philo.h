@@ -75,4 +75,5 @@ int		ft_atoi(const char *str);
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
+# define NEGATIVE_ARGV "philo: error: negative argument detected\n"
 #endif

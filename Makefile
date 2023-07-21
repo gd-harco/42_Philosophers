@@ -28,7 +28,7 @@ OBJS			=	${SRCS_LIST:%.c=${DIR_OBJS}%.o}
 
 CC				=	cc
 
-CFLAGS			=	-g3
+CFLAGS			=	-Wall -Werror -Wextra -g3
 
 FRAMEWORKS		=	-lpthread -D_REENTRANT
 
@@ -66,14 +66,12 @@ ${DIR_OBJS}		:
 # ---- Usual Rules ---- #
 
 clean			:
-					make -C lib/libft clean
 					${RM} ${OBJS}
 					${RM} ${DIR_OBJS}
 
 fclean			:
 					make clean
 					${RM} ${NAME}
-					make -C lib/libft fclean
 
 re				:
 					make fclean

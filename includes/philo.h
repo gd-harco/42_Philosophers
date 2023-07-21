@@ -58,8 +58,8 @@ struct s_data
 	size_t	tte;
 	size_t	tts;
 	size_t	nb_goal;
-	t_fork	**forks;
-	t_philo	**philos;
+	t_fork	*forks;
+	t_philo	*philos;
 };
 
 //----------- Function -----------//
@@ -70,7 +70,7 @@ int		get_elapsed_time(struct timeval *initial_time);
 void	parse_argv(int argc, char **argv, t_data *data);
 
 //########### THREAD_INIT_C ###########//
-int		init_philo_fork(t_data *data);
+void	init_philo_fork(t_data *data);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

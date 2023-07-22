@@ -13,6 +13,7 @@
 #include "philo.h"
 
 bool	check_minus(int argc, char **argv);
+bool	invalid_char(int argc, char **str);
 
 /**
  * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.
@@ -24,9 +25,9 @@ bool	check_minus(int argc, char **argv);
  */
 void	parse_argv(int argc, char **argv, t_data *data)
 {
-	if (check_minus(argc, argv))
+	if (invalid_char(argc, argv))
 	{
-		printf(NEGATIVE_ARGV);
+		printf(INVALID_ARGV);
 		exit(EXIT_FAILURE);
 	}
 	if (argc == 6)
@@ -41,23 +42,18 @@ void	parse_argv(int argc, char **argv, t_data *data)
 	data->philos = NULL;
 }
 
-/**
- * @brief Check if there is a minus in argv. If there is, return true.
- * @param argv argument array
- * @return true if there is a minus, false otherwise
- */
-bool	check_minus(int argc, char **argv)
+bool	invalid_char(int argc, char **str)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	while (i < argc)
+	while (i <= argc)
 	{
 		j = 0;
-		while (argv[i][j])
+		while (str[i][j])
 		{
-			if (argv[i][j] == '-')
+			if (str[i][j] < '0' || '9' < str[i][j])
 				return (true);
 			j++;
 		}

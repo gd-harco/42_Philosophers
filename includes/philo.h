@@ -46,8 +46,8 @@ struct s_philo
 	size_t		time_since_eat_start;
 	size_t		time_since_think_start;
 	size_t		time_since_sleep_start;
-	t_fork		*right_fork;
 	t_fork		*left_fork;
+	t_fork		*right_fork;
 	t_data		*data;
 };
 
@@ -59,7 +59,7 @@ struct s_data
 	size_t	tts;
 	size_t	nb_goal;
 	t_fork	*forks;
-	t_philo	*philos;
+	t_philo	**philos;
 };
 
 //----------- Function -----------//

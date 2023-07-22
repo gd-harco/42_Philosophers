@@ -25,8 +25,6 @@
 
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
-typedef struct s_philo	t_philo;
-typedef struct s_data	t_data;
 
 struct s_fork
 {
@@ -37,21 +35,21 @@ struct s_fork
 	t_fork			*next;
 };
 
-struct s_philo
+typedef struct s_philo
 {
 	int			philo_id;
 	bool		is_alive;
 	pthread_t	thread;
 	size_t		time_until_death;
+	size_t		tt;
 	size_t		time_since_eat_start;
 	size_t		time_since_think_start;
 	size_t		time_since_sleep_start;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	t_data		*data;
-};
+}			t_philo;
 
-struct s_data
+typedef struct s_data
 {
 	size_t	nb_of_philo;
 	size_t	ttd;
@@ -60,7 +58,7 @@ struct s_data
 	size_t	nb_goal;
 	t_fork	*forks;
 	t_philo	**philos;
-};
+}				t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
@@ -71,6 +69,9 @@ void	parse_argv(int argc, char **argv, t_data *data);
 
 //########### THREAD_INIT_C ###########//
 void	init_philo_fork(t_data *data);
+
+//########### FORK_UTILS_C ###########//
+t_fork	*create_forks(int nb_fork);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

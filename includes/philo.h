@@ -40,11 +40,10 @@ typedef struct s_philo
 	int			philo_id;
 	bool		is_alive;
 	pthread_t	thread;
-	size_t		time_until_death;
-	size_t		tt;
-	size_t		time_since_eat_start;
-	size_t		time_since_think_start;
-	size_t		time_since_sleep_start;
+	size_t		time_left_death;
+	size_t		time_left_eat;
+	size_t		time_left_think;
+	size_t		time_left_sleep;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 }			t_philo;

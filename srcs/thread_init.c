@@ -28,10 +28,10 @@ int	create_philo(t_data *data)
 //			return (free_philo(philo), EXIT_FAILURE);
 		philo[i]->philo_id = i + 1;
 		philo[i]->is_alive = true;
-		philo[i]->time_until_death = 0;
-		philo[i]->time_since_eat_start = 0;
-		philo[i]->time_since_think_start = 0;
-		philo[i]->time_since_sleep_start = 0;
+		philo[i]->time_left_death = data->ttd;
+		philo[i]->time_left_eat = data->tte;
+		philo[i]->time_left_think = data.;
+		philo[i]->time_left_sleep = data->tts;
 		while (data->forks->fork_id != (int)(i + 1))
 			data->forks = data->forks->next;
 		philo[i]->left_fork = data->forks;

@@ -18,7 +18,8 @@ HEADERS_LIST	=	philo.h
 
 SRCS_LIST		=	main.c			time.c			\
 					parsing.c		atoi.c			\
-					thread_init.c	fork_utils.c
+					philo_init.c	fork_utils.c	\
+					free_data.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 

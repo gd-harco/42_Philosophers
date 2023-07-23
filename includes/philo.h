@@ -42,8 +42,8 @@ typedef struct s_philo
 	pthread_t	thread;
 	size_t		time_left_death;
 	size_t		time_left_eat;
-	size_t		time_left_think;
 	size_t		time_left_sleep;
+	size_t		loop_left;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 }			t_philo;
@@ -64,13 +64,18 @@ typedef struct s_data
 int		get_elapsed_time(struct timeval *initial_time);
 
 //########### PARSING_C ###########//
-void	parse_argv(int argc, char **argv, t_data *data);
+int parse_argv(int argc, char **argv, t_data *data);
+
+//########### FREE_DATA_C ###########//
+int		exit_free_data(t_data *data);
 
 //########### THREAD_INIT_C ###########//
-void	init_philo_fork(t_data *data);
+int		init_philo_fork(t_data *data);
+void	free_philo(t_philo **philo);
 
 //########### FORK_UTILS_C ###########//
-t_fork	*create_forks(int nb_fork);
+int		create_forks(t_data *data);
+void	fork_free(t_fork *forks);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

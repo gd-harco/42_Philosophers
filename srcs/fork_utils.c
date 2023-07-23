@@ -2,27 +2,25 @@
 
 static void		add_back(t_fork **forks, t_fork *new);
 static t_fork	*new_fork(t_fork *previous, int id);
-static void		fork_free(t_fork *forks);
 
-t_fork	*create_forks(int nb_fork)
+int	create_forks(t_data *data)
 {
-	t_fork	*forks_list;
 	t_fork	*previous;
 	t_fork	*current;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	forks_list = NULL;
+	data->forks = NULL;
 	previous = NULL;
-	while (++i <= nb_fork)
+	while (++i <= data->nb_of_philo)
 	{
 		current = new_fork(previous, i);
 		if (!current)
-			return (fork_free(forks_list), NULL);
-		add_back(&forks_list, current);
+			return (EXIT_FAILURE);
+		add_back(&data->forks, current);
 		previous = current;
 	}
-	return (forks_list);
+	return (EXIT_SUCCESS);
 }
 
 static t_fork	*new_fork(t_fork *previous, int id)
@@ -41,6 +39,7 @@ static t_fork	*new_fork(t_fork *previous, int id)
 	return (fork);
 }
 
+//TODO : Set new element using previous, avoid iterating on the whole list
 static void	add_back(t_fork **forks, t_fork *new)
 {
 	t_fork	*current;
@@ -58,7 +57,7 @@ static void	add_back(t_fork **forks, t_fork *new)
 		*forks = new;
 }
 
-static void	fork_free(t_fork *forks)
+void	fork_free(t_fork *forks)
 {
 	t_fork	*current;
 	t_fork	*next;

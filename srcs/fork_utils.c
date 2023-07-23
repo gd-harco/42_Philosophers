@@ -1,6 +1,6 @@
 #include "philo.h"
 
-static void		add_back(t_fork **forks, t_fork *new);
+static void		add_back(t_fork *previous, t_fork *new, t_fork **list_data);
 static t_fork	*new_fork(t_fork *previous, int id);
 
 int	create_forks(t_data *data)
@@ -17,7 +17,7 @@ int	create_forks(t_data *data)
 		current = new_fork(previous, i);
 		if (!current)
 			return (EXIT_FAILURE);
-		add_back(&data->forks, current);
+		add_back(previous, current, &data->forks);
 		previous = current;
 	}
 	return (EXIT_SUCCESS);
@@ -39,22 +39,12 @@ static t_fork	*new_fork(t_fork *previous, int id)
 	return (fork);
 }
 
-//TODO : Set new element using previous, avoid iterating on the whole list
-static void	add_back(t_fork **forks, t_fork *new)
+static void	add_back(t_fork *previous, t_fork *new, t_fork **list_data)
 {
-	t_fork	*current;
-
-	if (!forks)
-		return ;
-	if (*forks)
-	{
-		current = *forks;
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
+	if (!previous)
+		*list_data = new;
 	else
-		*forks = new;
+		previous->next = new;
 }
 
 void	fork_free(t_fork *forks)

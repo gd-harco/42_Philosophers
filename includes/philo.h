@@ -80,6 +80,9 @@ void	fork_free(t_fork *forks);
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);
 
+int		init_threads(t_data *data);
+
+
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \

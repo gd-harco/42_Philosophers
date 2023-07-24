@@ -46,7 +46,8 @@ typedef struct s_philo
 	size_t		loop_left;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-}			t_philo;
+	int			initial_time;
+}				t_philo;
 
 typedef struct s_data
 {
@@ -57,14 +58,16 @@ typedef struct s_data
 	size_t	nb_goal;
 	t_fork	*forks;
 	t_philo	**philos;
-}				t_data;
+	int		initial_time;
+}					t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
-int		get_elapsed_time(struct timeval *initial_time);
+int		get_elapsed_time(int initial_time);
+int		get_initial_time(void);
 
 //########### PARSING_C ###########//
-int parse_argv(int argc, char **argv, t_data *data);
+int		parse_argv(int argc, char **argv, t_data *data);
 
 //########### FREE_DATA_C ###########//
 int		exit_free_data(t_data *data);

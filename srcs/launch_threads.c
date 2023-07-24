@@ -18,7 +18,7 @@ int	init_threads(t_data *data)
 	while (++i < data->nb_of_philo)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,
-				&thread_routine, &data->philos[i]->philo_id) != 0)
+				&thread_routine, data->philos[i]) != 0)
 			return (detach_threads_error(data->philos, i),
 				exit_free_data(data));
 	}

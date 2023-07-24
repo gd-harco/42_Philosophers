@@ -16,9 +16,10 @@ bool	check_minus(int argc, char **argv);
 bool	invalid_char(int argc, char **argv);
 
 /**
- * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.
- * If invalid number, return 1.
- * Set philo and fork struct to NULL.
+ * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.\n
+ * If invalid number, return 1.\n
+ * Set philo and fork struct to NULL.\n
+ * Fill the initial time to the launch time.
  * @param argc argument count
  * @param argv argument array
  * @param data pointer to data struct
@@ -39,6 +40,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	data->tts = ft_atoi(argv[4]);
 	data->forks = NULL;
 	data->philos = NULL;
+	data->initial_time = get_initial_time();
 	return (EXIT_SUCCESS);
 }
 

@@ -49,6 +49,7 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	philo[i]->left_fork = forks;
 	if (i > 0)
 		philo[i]->right_fork = philo[i - 1]->left_fork;
+	philo[i]->initial_time = data->initial_time;
 }
 
 void	free_philo(t_philo **philo)

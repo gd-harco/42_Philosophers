@@ -16,8 +16,9 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (argc < 5 || argc > 6)
-		printf(INVALID_ARGC);
-	parse_argv(argc, argv, &data);
+	if (parse_argv(argc, argv, &data) == EXIT_FAILURE
+		|| init_philo_fork(&data) == EXIT_FAILURE
+		|| init_threads(&data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

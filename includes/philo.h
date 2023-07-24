@@ -25,8 +25,6 @@
 
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
-typedef struct s_philo	t_philo;
-typedef struct s_data	t_data;
 
 struct s_fork
 {
@@ -37,20 +35,20 @@ struct s_fork
 	t_fork			*next;
 };
 
-struct s_philo
+typedef struct s_philo
 {
-	int		philo_id;
-	bool	is_alive;
-	size_t	time_until_death;
-	size_t	time_since_eat_start;
-	size_t	time_since_think_start;
-	size_t	time_since_sleep_start;
-	t_fork	*right_fork;
-	t_fork	*left_fork;
-	t_data	*data;
-};
+	int			philo_id;
+	bool		is_alive;
+	pthread_t	thread;
+	size_t		time_left_death;
+	size_t		time_left_eat;
+	size_t		time_left_sleep;
+	size_t		loop_left;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
+}			t_philo;
 
-struct s_data
+typedef struct s_data
 {
 	size_t	nb_of_philo;
 	size_t	ttd;
@@ -58,21 +56,36 @@ struct s_data
 	size_t	tts;
 	size_t	nb_goal;
 	t_fork	*forks;
-	t_philo	*philos;
-};
+	t_philo	**philos;
+}				t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
 int		get_elapsed_time(struct timeval *initial_time);
 
 //########### PARSING_C ###########//
-void	parse_argv(int argc, char **argv, t_data *data);
+int parse_argv(int argc, char **argv, t_data *data);
+
+//########### FREE_DATA_C ###########//
+int		exit_free_data(t_data *data);
+
+//########### THREAD_INIT_C ###########//
+int		init_philo_fork(t_data *data);
+void	free_philo(t_philo **philo);
+
+//########### FORK_UTILS_C ###########//
+int		create_forks(t_data *data);
+void	fork_free(t_fork *forks);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);
+
+int		init_threads(t_data *data);
+
 
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
+# define INVALID_ARGV "philo: error: invalid char in argument detected\n"
 #endif

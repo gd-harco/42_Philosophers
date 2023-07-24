@@ -35,30 +35,38 @@ struct s_fork
 	t_fork			*next;
 };
 
+typedef struct s_mutex_list
+{
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	is_alive_mutex;
+}	t_mutex_list;
+
 typedef struct s_philo
 {
-	int			philo_id;
-	bool		is_alive;
-	pthread_t	thread;
-	size_t		time_left_death;
-	size_t		time_left_eat;
-	size_t		time_left_sleep;
-	size_t		loop_left;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
-	int			initial_time;
+	int				philo_id;
+	bool			is_alive;
+	pthread_t		thread;
+	t_mutex_list	*mutex_list;
+	size_t			time_left_death;
+	size_t			time_left_eat;
+	size_t			time_left_sleep;
+	size_t			loop_left;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	int				initial_time;
 }				t_philo;
 
 typedef struct s_data
 {
-	size_t	nb_of_philo;
-	size_t	ttd;
-	size_t	tte;
-	size_t	tts;
-	size_t	nb_goal;
-	t_fork	*forks;
-	t_philo	**philos;
-	int		initial_time;
+	size_t			nb_of_philo;
+	size_t			ttd;
+	size_t			tte;
+	size_t			tts;
+	size_t			nb_goal;
+	t_mutex_list	mutex_list;
+	t_fork			*forks;
+	t_philo			**philos;
+	int				initial_time;
 }					t_data;
 
 //----------- Function -----------//

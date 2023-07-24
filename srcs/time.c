@@ -34,5 +34,5 @@ int	get_elapsed_time(int initial_time)
 	gettimeofday(&current_time, NULL);
 	calculated_time = (current_time.tv_sec * 1000)
 		+ (current_time.tv_usec / 1000);
-	return (initial_time - calculated_time);
+	return (calculated_time - initial_time);
 }

@@ -14,6 +14,7 @@
 
 bool	check_minus(int argc, char **argv);
 bool	invalid_char(int argc, char **argv);
+int		init_mutex_list(t_data *data);
 
 /**
  * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.\n
@@ -34,6 +35,8 @@ int	parse_argv(int argc, char **argv, t_data *data)
 		data->nb_goal = ft_atoi(argv[5]);
 	else
 		data->nb_goal = 0;
+	if (init_mutex_list(data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	data->nb_of_philo = ft_atoi(argv[1]);
 	data->ttd = ft_atoi(argv[2]);
 	data->tte = ft_atoi(argv[3]);
@@ -69,4 +72,11 @@ bool	invalid_char(int argc, char **argv)
 		i++;
 	}
 	return (false);
+}
+
+int	init_mutex_list(t_data *data)
+{
+	pthread_mutex_init(&data->mutex_list.print_mutex, NULL);
+	pthread_mutex_init(&data->mutex_list.is_alive_mutex, NULL);
+	return (EXIT_SUCCESS);
 }

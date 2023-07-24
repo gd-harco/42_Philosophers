@@ -82,6 +82,8 @@ int		ft_atoi(const char *str);
 
 int		init_threads(t_data *data);
 
+//########### THREAD_ROUTINE.C ###########//
+void	*thread_routine(void *thread_id);
 
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \

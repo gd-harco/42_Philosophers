@@ -25,15 +25,6 @@ int	init_threads(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	*thread_routine(void *thread_id)
-{
-	int	*id;
-
-	id = (int *)thread_id;
-	printf ("Hello from thread %d\n", *id);
-	return (NULL);
-}
-
 /**
  * @brief Detach all thread to exit the program cleanly
  * @param philos The philos array

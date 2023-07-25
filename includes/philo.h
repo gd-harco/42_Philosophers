@@ -45,6 +45,7 @@ typedef struct s_philo
 {
 	int				philo_id;
 	bool			is_alive;
+	bool			has_eat;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
 	int				time_left_death;

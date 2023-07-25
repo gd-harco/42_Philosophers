@@ -90,6 +90,7 @@ void	fork_free(t_fork *forks);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);
+bool	is_event(int philo_id);
 
 int		init_threads(t_data *data);
 

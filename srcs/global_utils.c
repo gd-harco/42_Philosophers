@@ -56,3 +56,10 @@ static int	ft_overflow(int sign)
 	else
 		return ((int)LONG_MAX);
 }
+
+bool	is_event(int philo_id)
+{
+	if (philo_id % 2 == 0)
+		return (true);
+	return (false);
+}

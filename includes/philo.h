@@ -48,7 +48,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
 	int				time_to_die;
-	int				time_left_death;
 	int				time_left_eat;
 	int				time_left_sleep;
 	int				loop_left;

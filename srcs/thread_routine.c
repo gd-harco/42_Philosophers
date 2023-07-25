@@ -1,39 +1,39 @@
 #include "philo.h"
 
-static void	philo_sleep(t_philo *philo);
-static void	philo_eat(t_philo *philo);
-static void	philo_think(t_philo *philo);
-static void	take_fork(t_philo *philo, t_fork *fork);
+static void	philo_sleep(t_philo *philo, int *time_since_eat);
+static void	philo_eat(t_philo *philo, int *time_since_eat);
+static void	philo_think(t_philo *philo, int *time_since_eat);
+static void	take_fork(t_philo *philo, t_fork *fork, int *time_since_eat);
 
 void	*thread_routine(void *thread)
 {
 	t_philo	*philo;
+	int		time_since_eat;
 
 	philo = (t_philo *)thread;
-	philo->time_left_death = philo->time_to_die;
 	if (philo->philo_id % 2 == 1)
 	{
-		philo_think(philo);
+		philo_think(philo, &time_since_eat);
 		usleep(1000);
 	}
 	while (philo->is_alive)
 	{
-		philo_eat(philo);
-		philo_sleep(philo);
-		philo_think(philo);
+		philo_eat(philo, &time_since_eat);
+		philo_sleep(philo, &time_since_eat);
+		philo_think(philo, &time_since_eat);
 	}
 	return (NULL);
 }
 
-static void	philo_eat(t_philo *philo)
+static void	philo_eat(t_philo *philo, int *time_since_eat)
 {
 	int	start_time;
 	int	cur_time;
 	int	action_time;
 	int	time_buff;
 
-	take_fork(philo, philo->left_fork);
-	take_fork(philo, philo->right_fork);
+	take_fork(philo, philo->left_fork, time_since_eat);
+	take_fork(philo, philo->right_fork, time_since_eat);
 	start_time = get_current_time();
 	printf("time left %d\n", philo->time_left_eat);
 	action_time = get_time_since(philo->startup_time);
@@ -53,7 +53,7 @@ static void	philo_eat(t_philo *philo)
 	philo->time_left_death = philo->time_to_die;
 }
 
-static void	philo_sleep(t_philo *philo)
+static void	philo_sleep(t_philo *philo, int *time_since_eat)
 {
 	int	start_time;
 	int	cur_time;
@@ -83,7 +83,7 @@ static void	philo_sleep(t_philo *philo)
 
 }
 
-static void	philo_think(t_philo *philo)
+static void	philo_think(t_philo *philo, int *time_since_eat)
 {
 	int	action_time;
 
@@ -97,7 +97,7 @@ static void	philo_think(t_philo *philo)
 		call_death(philo);
 }
 
-static void	take_fork(t_philo *philo, t_fork *fork)
+static void	take_fork(t_philo *philo, t_fork *fork, int *time_since_eat)
 {
 	int	action_time;
 	int	time_buff;

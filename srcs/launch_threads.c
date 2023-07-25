@@ -36,7 +36,6 @@ int	init_threads(t_data *data)
  */
 int	detach_threads_error(t_philo **philos, int i)
 {
-	// close stdout
 	printf("Test\n");
 	while (--i <= 0)
 		pthread_detach(philos[i]->thread);

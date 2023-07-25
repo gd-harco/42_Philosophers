@@ -37,6 +37,7 @@ struct s_fork
 
 typedef struct s_mutex_list
 {
+	bool			dead_philo_check;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	is_alive_mutex;
 }	t_mutex_list;
@@ -58,6 +59,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	bool			philo_dead;
 	size_t			nb_of_philo;
 	size_t			ttd;
 	size_t			tte;
@@ -82,7 +84,7 @@ int		exit_free_data(t_data *data);
 
 //########### THREAD_INIT_C ###########//
 int		init_philo_fork(t_data *data);
-void	free_philo(t_philo **philo);
+void	philos_free(t_philo **philo);
 
 //########### FORK_UTILS_C ###########//
 int		create_forks(t_data *data);
@@ -97,9 +99,15 @@ int		init_threads(t_data *data);
 //########### THREAD_ROUTINE.C ###########//
 void	*thread_routine(void *thread_id);
 
+//########### DEATH_HANDLING.C ###########//
+void	call_death(t_philo *philo);
+void	exit_death(t_data *data);
+
+
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
+
 #endif

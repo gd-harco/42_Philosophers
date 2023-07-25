@@ -38,6 +38,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	if (init_mutex_list(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	data->nb_of_philo = ft_atoi(argv[1]);
+	data->philo_dead = false;
 	data->ttd = ft_atoi(argv[2]);
 	data->tte = ft_atoi(argv[3]);
 	data->tts = ft_atoi(argv[4]);

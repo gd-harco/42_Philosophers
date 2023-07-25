@@ -46,18 +46,3 @@ static void	add_back(t_fork *previous, t_fork *new, t_fork **list_data)
 	else
 		previous->next = new;
 }
-
-void	fork_free(t_fork *forks)
-{
-	t_fork	*current;
-	t_fork	*next;
-
-	current = forks;
-	while (current)
-	{
-		next = current->next;
-		pthread_mutex_destroy(&current->f_mutex);
-		free(current);
-		current = next;
-	}
-}

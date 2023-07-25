@@ -23,8 +23,6 @@ int	init_threads(t_data *data)
 				exit_free_data(data));
 	}
 	i = -1;
-	while (++i < data->nb_of_philo)
-		pthread_join(data->philos[i]->thread, NULL);
 	return (EXIT_SUCCESS);
 }
 

@@ -4,7 +4,6 @@ static void	philo_sleep(t_philo *philo);
 static void	philo_eat(t_philo *philo, int *time_last_eat);
 static void	philo_think(t_philo *philo);
 static void	take_fork(t_philo *philo, t_fork *fork);
-static void	rest_fork(t_fork *fork);
 
 void	*thread_routine(void *thread)
 {
@@ -23,6 +22,7 @@ void	*thread_routine(void *thread)
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	call_death(philo);
 	return (NULL);
 }
 
@@ -37,13 +37,14 @@ static void	philo_eat(t_philo *philo, int *time_last_eat)
 	action_time = get_elapsed_time(philo->initial_time);
 	start_time = get_initial_time();
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d is eating\n", action_time, philo->philo_id);
+	if (!philo->mutex_list->dead_philo_check)
+		printf("%d %d is eating\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	cur_time = get_elapsed_time(start_time);
 	while (cur_time < philo->time_left_eat)
 		cur_time = get_elapsed_time(start_time);
-	rest_fork(philo->left_fork);
-	rest_fork(philo->right_fork);
+	pthread_mutex_unlock(&philo->left_fork->f_mutex);
+	pthread_mutex_unlock(&philo->right_fork->f_mutex);
 	*time_last_eat = 0;
 }
 
@@ -56,7 +57,8 @@ static void	philo_sleep(t_philo *philo)
 	start_time = get_initial_time();
 	action_time = get_elapsed_time(philo->initial_time);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d is sleeping\n", action_time, philo->philo_id);
+	if (!philo->mutex_list->dead_philo_check)
+		printf("%d %d is sleeping\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	cur_time = get_elapsed_time(start_time);
 	while (cur_time < philo->time_left_sleep)
@@ -69,11 +71,9 @@ static void	philo_think(t_philo *philo)
 
 	action_time = get_elapsed_time(philo->initial_time);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d is thinking\n", action_time, philo->philo_id);
+	if (!philo->mutex_list->dead_philo_check)
+		printf("%d %d is thinking\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
-//	while (!philo->right_fork->available
-//		&& !philo->left_fork->available)
-//		usleep(1000);
 }
 
 static void	take_fork(t_philo *philo, t_fork *fork)
@@ -84,12 +84,7 @@ static void	take_fork(t_philo *philo, t_fork *fork)
 	fork->available = false;
 	action_time = get_elapsed_time(philo->initial_time);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d has taken a fork\n", action_time, philo->philo_id);
+	if (!philo->mutex_list->dead_philo_check)
+		printf("%d %d has taken a fork\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
-}
-
-static void	rest_fork(t_fork *fork)
-{
-	fork->available = true;
-	pthread_mutex_unlock(&fork->f_mutex);
 }

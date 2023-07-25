@@ -52,13 +52,3 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	philo[i]->initial_time = data->initial_time;
 	philo[i]->mutex_list = &data->mutex_list;
 }
-
-void	free_philo(t_philo **philo)
-{
-	int	i;
-
-	i = -1;
-	while (philo[++i])
-		free(philo[i]);
-	free(philo);
-}

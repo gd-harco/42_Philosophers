@@ -13,9 +13,10 @@ void	*thread_routine(void *thread)
 
 	philo = (t_philo *)thread;
 	if (philo->philo_id % 2 == 1)
+	{
 		philo_think(philo);
-	else
-		philo_eat(philo, &time_last_eat);
+		usleep(1000);
+	}
 	while (philo->is_alive)
 	{
 		if (philo->right_fork->available && philo->left_fork->available)

@@ -12,7 +12,12 @@
 
 #include "philo.h"
 
-int	get_initial_time(void)
+/**
+ * @brief get the current time in milliseconds
+ * This is just a wrapper for gettimeofday that returns the time in milliseconds
+ * @return an int representing the current time in milliseconds
+ */
+int	get_current_time(void)
 {
 	struct timeval	time;
 
@@ -22,11 +27,10 @@ int	get_initial_time(void)
 
 /**
  * @brief returns the elapsed time in milliseconds
- * @param initial_time Int value storing the startup time,\n
- *	set at the beginning of the program
- * @return an int representing the elapsed time in milliseconds
+ * @param initial_time the time to compare to
+ * @return an int representing the time difference in milliseconds
  */
-int	get_elapsed_time(int initial_time)
+int	get_time_since(int initial_time)
 {
 	struct timeval	current_time;
 	int				calculated_time;

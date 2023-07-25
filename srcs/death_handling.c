@@ -4,7 +4,7 @@ void	call_death(t_philo *philo)
 {
 	int	death_time;
 
-	death_time = get_elapsed_time(philo->initial_time);
+	death_time = get_time_since(philo->startup_time);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	printf("%d %d has died\n", death_time, philo->philo_id);
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);

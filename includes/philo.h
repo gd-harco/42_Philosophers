@@ -30,7 +30,6 @@ struct s_fork
 {
 	t_fork			*previous;
 	int				fork_id;
-	bool			available;
 	pthread_mutex_t	f_mutex;
 	t_fork			*next;
 };
@@ -48,13 +47,14 @@ typedef struct s_philo
 	bool			is_alive;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
+	int				time_to_die;
 	int				time_left_death;
 	int				time_left_eat;
 	int				time_left_sleep;
 	int				loop_left;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	int				initial_time;
+	int				startup_time;
 }				t_philo;
 
 typedef struct s_data
@@ -68,13 +68,13 @@ typedef struct s_data
 	t_mutex_list	mutex_list;
 	t_fork			*forks;
 	t_philo			**philos;
-	int				initial_time;
+	int				startup_time;
 }					t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
-int		get_elapsed_time(int initial_time);
-int		get_initial_time(void);
+int		get_time_since(int initial_time);
+int		get_current_time(void);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);

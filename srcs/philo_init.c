@@ -41,6 +41,7 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	forks = data->forks;
 	philo[i]->philo_id = i + 1;
 	philo[i]->is_alive = true;
+	philo[i]->time_to_die = data->ttd;
 	philo[i]->time_left_death = data->ttd;
 	philo[i]->time_left_eat = data->tte;
 	philo[i]->time_left_sleep = data->tts;
@@ -49,6 +50,6 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	philo[i]->left_fork = forks;
 	if (i > 0)
 		philo[i]->right_fork = philo[i - 1]->left_fork;
-	philo[i]->initial_time = data->initial_time;
+	philo[i]->startup_time = data->startup_time;
 	philo[i]->mutex_list = &data->mutex_list;
 }

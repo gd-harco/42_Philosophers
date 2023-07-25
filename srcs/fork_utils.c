@@ -32,7 +32,6 @@ static t_fork	*new_fork(t_fork *previous, int id)
 		return (NULL);
 	fork->previous = previous;
 	fork->fork_id = id;
-	fork->available = true;
 	if (pthread_mutex_init(&fork->f_mutex, NULL) != 0)
 		return (free(fork), NULL);
 	fork->next = NULL;

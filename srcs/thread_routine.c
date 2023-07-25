@@ -12,7 +12,6 @@ void	*thread_routine(void *thread)
 	int		time_last_eat;
 
 	philo = (t_philo *)thread;
-	philo->has_eat = false;
 	if (philo->philo_id % 2 == 1)
 	{
 		philo_think(philo);
@@ -20,11 +19,9 @@ void	*thread_routine(void *thread)
 	}
 	while (philo->is_alive)
 	{
-		while (philo->has_eat == false)
-			philo_eat(philo, &time_last_eat);
-		philo_think(philo);
+		philo_eat(philo, &time_last_eat);
 		philo_sleep(philo);
-		philo->has_eat = false;
+		philo_think(philo);
 	}
 	return (NULL);
 }
@@ -40,7 +37,7 @@ static void	philo_eat(t_philo *philo, int *time_last_eat)
 	action_time = get_elapsed_time(philo->initial_time);
 	start_time = get_initial_time();
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d is eating\n",	 action_time, philo->philo_id);
+	printf("%d %d is eating\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	cur_time = get_elapsed_time(start_time);
 	while (cur_time < philo->time_left_eat)
@@ -48,7 +45,6 @@ static void	philo_eat(t_philo *philo, int *time_last_eat)
 	rest_fork(philo->left_fork);
 	rest_fork(philo->right_fork);
 	*time_last_eat = 0;
-	philo->has_eat = true;
 }
 
 static void	philo_sleep(t_philo *philo)
@@ -75,9 +71,9 @@ static void	philo_think(t_philo *philo)
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	printf("%d %d is thinking\n", action_time, philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
-	while (!philo->right_fork->available
-		&& !philo->left_fork->available)
-		usleep(1000);
+//	while (!philo->right_fork->available
+//		&& !philo->left_fork->available)
+//		usleep(1000);
 }
 
 static void	take_fork(t_philo *philo, t_fork *fork)

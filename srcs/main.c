@@ -20,15 +20,15 @@ int	main(int argc, char **argv)
 		|| init_philo_fork(&data) == EXIT_FAILURE
 		|| init_threads(&data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	while (42)
+	while (true)
 	{
-		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
-		if (data.mutex_list.dead_philo_check)
-		{
-			pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
+//		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
+//		if (data.mutex_list.dead_philo_check)
+//		{
+//			pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
+//			break ;
+//		}
+//		pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
 	}
 	exit_death(&data);
 	return (EXIT_SUCCESS);

@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <stdint.h>
 
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
@@ -48,14 +49,14 @@ typedef struct s_philo
 	bool			is_alive;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
-	int				ttd;
-	int				tte;
-	int				tts;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				eat_count;
 	int				eat_goal;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	int				startup_time;
+	uint64_t		startup_time;
 }				t_philo;
 
 typedef struct s_data
@@ -63,21 +64,21 @@ typedef struct s_data
 	bool			philo_dead;
 	bool			philo_eat_goal;
 	size_t			nb_of_philo;
-	size_t			ttd;
-	size_t			tte;
-	size_t			tts;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
 	size_t			nb_goal;
 	t_mutex_list	mutex_list;
 	t_fork			*forks;
 	t_philo			**philos;
-	int				startup_time;
+	uint64_t		startup_time;
 }					t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
-int		get_time_since(int initial_time);
-int		get_current_time(void);
-void	ft_usleep(int sleep_time, t_philo *philo);
+uint64_t	get_time_since(uint64_t initial_time);
+uint64_t		get_current_time(void);
+void 	ft_usleep(uint64_t ms_to_sleep, t_philo *philo, int *time_since_eat);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
@@ -110,7 +111,7 @@ void	exit_death(t_data *data);
 
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
-Usage: ./philo number_of_philosophers ttd time_to_eat time_to_sleep \
+Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
 

@@ -44,9 +44,9 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	init_mutex_list(data);
 	data->nb_of_philo = ft_atoi(argv[1]);
 	data->philo_dead = false;
-	data->ttd = ft_atoi(argv[2]);
-	data->tte = ft_atoi(argv[3]);
-	data->tts = ft_atoi(argv[4]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
 	data->forks = NULL;
 	data->philos = NULL;
 	data->startup_time = get_current_time();

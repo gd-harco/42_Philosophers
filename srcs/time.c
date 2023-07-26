@@ -17,12 +17,12 @@
  * This is just a wrapper for gettimeofday that returns the time in milliseconds
  * @return an int representing the current time in milliseconds
  */
-int	get_current_time(void)
+uint64_t	get_current_time(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((uint64_t)time.tv_sec * (uint64_t)1000 + (uint64_t)time.tv_usec / (uint64_t)1000);
 }
 
 /**
@@ -30,18 +30,19 @@ int	get_current_time(void)
  * @param initial_time the time to compare to
  * @return an int representing the time difference in milliseconds
  */
-int	get_time_since(int initial_time)
+uint64_t	get_time_since(uint64_t initial_time)
 {
 	struct timeval	current_time;
-	int				calculated_time;
+	uint64_t		calculated_time;
 
 	gettimeofday(&current_time, NULL);
-	calculated_time = (current_time.tv_sec * 1000)
-		+ (current_time.tv_usec / 1000);
+	calculated_time = ((uint64_t)current_time.tv_sec * (uint64_t)1000)
+		+ ((uint64_t)current_time.tv_usec / (uint64_t)1000);
 	return (calculated_time - initial_time);
 }
 
-//TODO: Implement philo death check.
+#define SLEEP_TIME 10
+
 /**
  * @brief Reimplementation of usleep in milliseconds instead of microseconds.\n
  * Does 10 milliseconds sleeps than checks if the philo is still alive. \n
@@ -49,13 +50,14 @@ int	get_time_since(int initial_time)
  * @param sleep_time The time to sleep in milliseconds
  * @param philo The philo concerned by the sleep
  */
-void	ft_usleep(int sleep_time, t_philo *philo)
+void ft_usleep(uint64_t ms_to_sleep, t_philo *philo, int *time_since_eat)
 {
-	while (sleep_time > 10 && philo->is_alive)
+	uint64_t	us_to_sleep = ms_to_sleep * 1000;
+
+	(void)time_since_eat;
+	while (us_to_sleep > 0 && philo->is_alive)
 	{
-		usleep(10 * 1000);
-		sleep_time -= 10;
+		usleep(SLEEP_TIME);\
+		us_to_sleep -= SLEEP_TIME;
 	}
-	if (philo->is_alive)
-		usleep(sleep_time * 1000);
 }

@@ -46,9 +46,9 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 		philo[i]->eat_goal = -1;
 	philo[i]->philo_id = i + 1;
 	philo[i]->is_alive = true;
-	philo[i]->ttd = data->ttd;
-	philo[i]->tte = data->tte;
-	philo[i]->tts = data->tts;
+	philo[i]->time_to_die = data->time_to_die;
+	philo[i]->time_to_eat = data->time_to_eat;
+	philo[i]->time_to_sleep = data->time_to_sleep;
 	while (forks->fork_id != (int)(i + 1))
 		forks = forks->next;
 	philo[i]->left_fork = forks;

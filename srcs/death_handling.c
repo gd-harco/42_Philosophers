@@ -1,5 +1,16 @@
 #include "philo.h"
 
+
+void	call_goal_achieve(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
+	philo->is_alive = false;
+	philo->mutex_list->dead_philo_check = true;
+	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
+	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
+}
+
+
 void	call_death(t_philo *philo)
 {
 	int	death_time;

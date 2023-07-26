@@ -47,10 +47,11 @@ typedef struct s_philo
 	bool			is_alive;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
-	int				time_to_die;
-	int				time_left_eat;
-	int				time_left_sleep;
-	int				loop_left;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int				eat_count;
+	int				eat_goal;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	int				startup_time;
@@ -59,6 +60,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	bool			philo_dead;
+	bool			philo_eat_goal;
 	size_t			nb_of_philo;
 	size_t			ttd;
 	size_t			tte;
@@ -74,6 +76,7 @@ typedef struct s_data
 //########### TIME_C ###########//
 int		get_time_since(int initial_time);
 int		get_current_time(void);
+void	ft_usleep(int sleep_time, t_philo *philo);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
@@ -99,13 +102,14 @@ int		init_threads(t_data *data);
 void	*thread_routine(void *thread_id);
 
 //########### DEATH_HANDLING.C ###########//
+void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
 
 
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
-Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
+Usage: ./philo number_of_philosophers ttd time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
 

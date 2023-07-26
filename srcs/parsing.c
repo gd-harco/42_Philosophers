@@ -32,11 +32,16 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	if (invalid_char(argc, argv))
 		return (printf(INVALID_ARGV), EXIT_FAILURE);
 	if (argc == 6)
+	{
+		data->philo_eat_goal = true;
 		data->nb_goal = ft_atoi(argv[5]);
+	}
 	else
+	{
+		data->philo_eat_goal = false;
 		data->nb_goal = 0;
-	if (init_mutex_list(data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	}
+	init_mutex_list(data);
 	data->nb_of_philo = ft_atoi(argv[1]);
 	data->philo_dead = false;
 	data->ttd = ft_atoi(argv[2]);
@@ -79,5 +84,6 @@ int	init_mutex_list(t_data *data)
 {
 	pthread_mutex_init(&data->mutex_list.print_mutex, NULL);
 	pthread_mutex_init(&data->mutex_list.is_alive_mutex, NULL);
+	data->mutex_list.dead_philo_check = false;
 	return (EXIT_SUCCESS);
 }

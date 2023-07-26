@@ -40,3 +40,22 @@ int	get_time_since(int initial_time)
 		+ (current_time.tv_usec / 1000);
 	return (calculated_time - initial_time);
 }
+
+//TODO: Implement philo death check.
+/**
+ * @brief Reimplementation of usleep in milliseconds instead of microseconds.\n
+ * Does 10 milliseconds sleeps than checks if the philo is still alive. \n
+ * Loop until the philo is dead or the sleep time is over.
+ * @param sleep_time The time to sleep in milliseconds
+ * @param philo The philo concerned by the sleep
+ */
+void	ft_usleep(int sleep_time, t_philo *philo)
+{
+	while (sleep_time > 10 && philo->is_alive)
+	{
+		usleep(10 * 1000);
+		sleep_time -= 10;
+	}
+	if (philo->is_alive)
+		usleep(sleep_time * 1000);
+}

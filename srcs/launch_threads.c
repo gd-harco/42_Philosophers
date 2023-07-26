@@ -22,7 +22,6 @@ int	init_threads(t_data *data)
 			return (detach_threads_error(data->philos, i),
 				exit_free_data(data));
 	}
-	i = -1;
 	return (EXIT_SUCCESS);
 }
 

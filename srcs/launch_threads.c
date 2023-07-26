@@ -15,6 +15,7 @@ int	init_threads(t_data *data)
 	size_t	i;
 
 	i = -1;
+	pthread_mutex_lock(&data->mutex_list.sync);
 	while (++i < data->nb_of_philo)
 	{
 		if (pthread_create(&data->philos[i]->thread, NULL,
@@ -22,6 +23,7 @@ int	init_threads(t_data *data)
 			return (detach_threads_error(data->philos, i),
 				exit_free_data(data));
 	}
+	pthread_mutex_unlock(&data->mutex_list.sync);
 	return (EXIT_SUCCESS);
 }
 
@@ -33,7 +35,6 @@ int	init_threads(t_data *data)
  */
 int	detach_threads_error(t_philo **philos, int i)
 {
-	printf("Test\n");
 	while (--i <= 0)
 		pthread_detach(philos[i]->thread);
 	return (EXIT_FAILURE);

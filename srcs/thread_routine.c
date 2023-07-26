@@ -11,6 +11,8 @@ void	*thread_routine(void *thread)
 	int		time_since_eat;
 
 	philo = (t_philo *)thread;
+	pthread_mutex_lock(&philo->mutex_list->sync);
+	pthread_mutex_unlock(&philo->mutex_list->sync);
 	if (philo->philo_id % 2 == 1)
 	{
 		philo_think(philo, &time_since_eat);

@@ -39,6 +39,7 @@ typedef struct s_mutex_list
 	bool			dead_philo_check;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	is_alive_mutex;
+	pthread_mutex_t	sync;
 }	t_mutex_list;
 
 typedef struct s_philo

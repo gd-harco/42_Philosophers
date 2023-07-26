@@ -82,8 +82,9 @@ bool	invalid_char(int argc, char **argv)
 
 int	init_mutex_list(t_data *data)
 {
+	data->mutex_list.dead_philo_check = false;
 	pthread_mutex_init(&data->mutex_list.print_mutex, NULL);
 	pthread_mutex_init(&data->mutex_list.is_alive_mutex, NULL);
-	data->mutex_list.dead_philo_check = false;
+	pthread_mutex_init(&data->mutex_list.sync, NULL);
 	return (EXIT_SUCCESS);
 }

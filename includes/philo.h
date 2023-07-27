@@ -51,7 +51,8 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				eat_count;
+	int				time_since_eat;
+	int				time_of_last_meal;
 	int				eat_goal;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -106,6 +107,7 @@ void	*thread_routine(void *thread_id);
 void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
+void	check_death(t_philo *philo);
 
 
 //----------- Error message -----------//

@@ -66,3 +66,12 @@ void	exit_death(t_data *data)
 	philos_free(data->philos);
 	mutex_list_destroy(&data->mutex_list);
 }
+
+void	check_death(t_philo *philo)
+{
+	int	time;
+
+	time = get_current_time();
+	if (time - philo->time_of_last_meal >= philo->time_to_die)
+		call_death(philo);
+}

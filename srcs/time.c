@@ -26,9 +26,9 @@ int	get_current_time(void)
 }
 
 /**
- * @brief returns the elapsed time in milliseconds
- * @param initial_time the time to compare to
- * @return an int representing the time difference in milliseconds
+ * @brief Returns the elapsed time in milliseconds.
+ * @param initial_time The time to compare to.
+ * @return An int representing the time difference in milliseconds.
  */
 int	get_time_since(int initial_time)
 {
@@ -42,30 +42,23 @@ int	get_time_since(int initial_time)
 }
 
 /**
- * @brief Reimplementation of usleep in milliseconds instead of microseconds.\n
- * Does 10 milliseconds sleeps than checks if the philo is still alive. \n
- * Loop until the philo is dead or the sleep time is over.
- * @param sleep_time The time to sleep in milliseconds
- * @param philo The philo concerned by the sleep
- * @param *time_since_eat A pointer to an int stocking the time since
- * the last time the philo eat.
+ * @brief A re-implementation of usleep(3) in mil
+ * @param ms_to_sleep
+ * @param philo
  */
-void	msleep(int ms_to_sleep, t_philo *philo, int *time_since_eat)
+void msleep(int ms_to_sleep, t_philo *philo)
 {
-	if (!philo && !time_since_eat)
+	if (!philo)
 		return (usleep(ms_to_sleep * 1000), (void)0);
-	while (ms_to_sleep >= 5 && philo->is_alive)
+	while (ms_to_sleep >= 5)
 	{
-		usleep(10 * 1000);
-		*time_since_eat += 10;
-		ms_to_sleep -= 10;
-		printf("slept 10 ms, left %d\n", ms_to_sleep);
-		if (*time_since_eat >= philo->time_to_die)
-		{
-			printf("death called\n");
-			call_death(philo);
-		}
+		usleep(5 * 1000);
+		ms_to_sleep -=5;
+		check_death(philo);
 	}
-	printf("%d in final sleep of %d ms\n", philo->philo_id, ms_to_sleep);
-	usleep(ms_to_sleep * 1000);
+	if (ms_to_sleep != 0)
+	{
+		usleep(ms_to_sleep * 1000);
+		check_death(philo);
+	}
 }

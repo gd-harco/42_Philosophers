@@ -55,6 +55,7 @@ typedef struct s_philo
 	int				time_since_eat;
 	int				time_of_last_meal;
 	int				eat_goal;
+	int				eat_count;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	int				startup_time;
@@ -79,7 +80,7 @@ typedef struct s_data
 //########### TIME_C ###########//
 int		get_time_since(int initial_time);
 int		get_current_time(void);
-void	msleep(int ms_to_sleep, t_philo *philo, int *time_since_eat);
+void msleep(int ms_to_sleep, t_philo *philo);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);

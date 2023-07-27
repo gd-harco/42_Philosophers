@@ -23,6 +23,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
+typedef long long int t_ms;
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
 
@@ -49,16 +50,16 @@ typedef struct s_philo
 	bool			is_alive;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				time_since_eat;
-	int				time_of_last_meal;
+	t_ms			time_to_die;
+	t_ms			time_to_eat;
+	t_ms			time_to_sleep;
+	t_ms			time_since_eat;
+	t_ms			time_of_last_meal;
+	t_ms			startup_time;
 	int				eat_goal;
 	int				eat_count;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	int				startup_time;
 }				t_philo;
 
 typedef struct s_data
@@ -73,14 +74,13 @@ typedef struct s_data
 	t_mutex_list	mutex_list;
 	t_fork			*forks;
 	t_philo			**philos;
-//	int				startup_time;
 }					t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
-int		get_time_since(int initial_time);
-int		get_current_time(void);
-void msleep(int ms_to_sleep, t_philo *philo);
+t_ms	get_time_since(t_ms initial_time);
+t_ms	get_current_time(void);
+void	msleep(t_ms ms_to_sleep, t_philo *philo);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);

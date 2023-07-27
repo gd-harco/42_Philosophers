@@ -17,7 +17,7 @@ void	call_death(t_philo *philo)
 
 	death_time = get_time_since(philo->startup_time);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%d %d has died\n", death_time, philo->philo_id);
+	printf("%d %d died\n", death_time, philo->philo_id);
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	philo->mutex_list->dead_philo_check = true;
 	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
@@ -69,9 +69,12 @@ void	exit_death(t_data *data)
 
 void	check_death(t_philo *philo)
 {
-	int	time;
+	struct timeval	current_time;
+	t_ms 			calculated_time;
 
-	time = get_time_since(philo->time_of_last_meal);
-	if (time >= philo->time_to_die)
+	gettimeofday(&current_time, NULL);
+	calculated_time = (current_time.tv_sec * 1000)
+			+ (current_time.tv_usec / 1000);
+	if (calculated_time - philo->startup_time >= philo->time_to_die)
 		call_death(philo);
 }

@@ -17,7 +17,7 @@
  * This is just a wrapper for gettimeofday that returns the time in milliseconds
  * @return an int representing the current time in milliseconds
  */
-int	get_current_time(void)
+t_ms	get_current_time(void)
 {
 	struct timeval	time;
 
@@ -30,10 +30,10 @@ int	get_current_time(void)
  * @param initial_time The time to compare to.
  * @return An int representing the time difference in milliseconds.
  */
-int	get_time_since(int initial_time)
+t_ms	get_time_since(t_ms initial_time)
 {
 	struct timeval	current_time;
-	int				calculated_time;
+	t_ms 			calculated_time;
 
 	gettimeofday(&current_time, NULL);
 	calculated_time = (current_time.tv_sec * 1000)
@@ -42,23 +42,25 @@ int	get_time_since(int initial_time)
 }
 
 /**
- * @brief A re-implementation of usleep(3) in mil
- * @param ms_to_sleep
- * @param philo
+ * @brief A re-implementation of usleep(3) in milliseconds.\n
+ * Perform multiple 5 milisecond sleeps until the desired time is reached.\n
+ * Check if the philosopher is still alive every 5 miliseconds.
+ * @param ms_to_sleep The time to sleep in milliseconds.
+ * @param philo The philosopher to check for death.
  */
-void msleep(int ms_to_sleep, t_philo *philo)
+void msleep(t_ms ms_to_sleep, t_philo *philo)
 {
+	t_ms	slept;
+	t_ms	start_time;
+
 	if (!philo)
 		return (usleep(ms_to_sleep * 1000), (void)0);
-	while (ms_to_sleep >= 5)
+	start_time = get_current_time();
+	slept = 0;
+	while (slept < ms_to_sleep)
 	{
 		usleep(5 * 1000);
-		ms_to_sleep -=5;
 		check_death(philo);
-	}
-	if (ms_to_sleep != 0)
-	{
-		usleep(ms_to_sleep * 1000);
-		check_death(philo);
+		slept = get_time_since(start_time);
 	}
 }

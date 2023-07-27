@@ -16,7 +16,7 @@ int	create_philos(t_data *data)
 	t_philo	**philo;
 	size_t	i;
 
-	philo = malloc(sizeof(t_philo *) * data->nb_of_philo + 1);
+	philo = malloc(sizeof(t_philo *) * (data->nb_of_philo + 1));
 	if (!philo)
 		return (EXIT_FAILURE);
 	data->philos = philo;

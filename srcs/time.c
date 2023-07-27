@@ -64,4 +64,5 @@ int	msleep(t_ms ms_to_sleep, t_philo *philo)
 			return (DEATH);
 		slept = get_time_since(start_time);
 	}
+	return (EXIT_SUCCESS);
 }

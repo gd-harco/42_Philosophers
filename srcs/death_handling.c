@@ -16,7 +16,8 @@ void	call_death(t_philo *philo)
 {
 
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	printf("%lld %d died\n", get_time_since(philo->startup_time), philo->philo_id);
+	if (!philo->mutex_list->dead_philo_check)
+		printf("%lld %d died\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	philo->mutex_list->dead_philo_check = true;
 	philo->is_alive = false;
@@ -67,6 +68,7 @@ void	exit_death(t_data *data)
 		pthread_join(data->philos[i]->thread, NULL);
 	fork_free(data->forks);
 	philos_free(data->philos);
+	pthread_mutex_unlock(&data->mutex_list.print_mutex);
 	mutex_list_destroy(&data->mutex_list);
 }
 

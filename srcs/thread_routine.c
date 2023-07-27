@@ -1,9 +1,9 @@
 #include "philo.h"
 
-static void philo_eat(t_philo *philo);
-static void philo_sleep(t_philo *philo);
-static void philo_think(t_philo *philo);
-static void	take_forks(t_philo *philo);
+static int philo_eat(t_philo *philo);
+static int philo_sleep(t_philo *philo);
+static int philo_think(t_philo *philo);
+static int take_forks(t_philo *philo);
 
 void	*thread_routine(void *thread)
 {
@@ -20,21 +20,24 @@ void	*thread_routine(void *thread)
 	}
 	while (philo->is_alive)
 	{
-		philo_eat(philo);
-		philo_sleep(philo);
+		if (philo_eat(philo) == DEATH
+		|| philo_sleep(philo) == DEATH)
+			return (NULL);
 		philo_think(philo);
 	}
 	return (NULL);
 }
 
-static void philo_eat(t_philo *philo)
+static int philo_eat(t_philo *philo)
 {
-	take_forks(philo);
+	if (take_forks(philo) == DEATH)
+		return (DEATH);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	printf("%lld %d is eating\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	philo->time_of_last_meal = get_current_time();
-	msleep(philo->time_to_eat,philo);
+	if (msleep(philo->time_to_eat,philo) == DEATH)
+		return (printf("dead during eating\n"), DEATH);
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	philo->right_fork->fork_available = true;
 	pthread_mutex_unlock(&philo->right_fork->f_mutex);
@@ -50,27 +53,32 @@ static void philo_eat(t_philo *philo)
 			call_goal_achieve(philo);
 		}
 	}
+	return (EXIT_SUCCESS);
 }
 
-static void	philo_sleep(t_philo *philo)
+static int philo_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	printf("%lld %d is sleeping\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
-	msleep(philo->time_to_sleep, philo);
+	return (msleep(philo->time_to_sleep, philo));
 }
 
-static void philo_think(t_philo *philo)
+static int philo_think(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	printf("%lld %d is thinking\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
+	return (EXIT_SUCCESS);
 }
 
-static void	take_forks(t_philo *philo)
+static int take_forks(t_philo *philo)
 {
 	while (!get_fork_availability(philo->right_fork) && !get_fork_availability(philo->left_fork))
-		check_death(philo);
+	{
+		if (check_death(philo)== DEATH)
+			return (DEATH);
+	}
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	philo->left_fork->fork_available = false;
@@ -81,5 +89,5 @@ static void	take_forks(t_philo *philo)
 	printf("%lld %d has taken a fork\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	pthread_mutex_unlock(&philo->right_fork->f_mutex);
-
+	return (EXIT_SUCCESS);
 }

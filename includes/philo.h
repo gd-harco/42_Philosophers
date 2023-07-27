@@ -80,7 +80,7 @@ typedef struct s_data
 //########### TIME_C ###########//
 t_ms	get_time_since(t_ms initial_time);
 t_ms	get_current_time(void);
-void	msleep(t_ms ms_to_sleep, t_philo *philo);
+int msleep(t_ms ms_to_sleep, t_philo *philo);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
@@ -110,9 +110,10 @@ void	*thread_routine(void *thread_id);
 void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
-void	check_death(t_philo *philo);
+int check_death(t_philo *philo);
 
 
+# define DEATH 666
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \

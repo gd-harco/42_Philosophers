@@ -48,19 +48,20 @@ t_ms	get_time_since(t_ms initial_time)
  * @param ms_to_sleep The time to sleep in milliseconds.
  * @param philo The philosopher to check for death.
  */
-void msleep(t_ms ms_to_sleep, t_philo *philo)
+int	msleep(t_ms ms_to_sleep, t_philo *philo)
 {
 	t_ms	slept;
 	t_ms	start_time;
 
 	if (!philo)
-		return (usleep(ms_to_sleep * 1000), (void)0);
+		return (usleep(ms_to_sleep * 1000));
 	start_time = get_current_time();
 	slept = 0;
 	while (slept < ms_to_sleep)
 	{
 		usleep(5 * 1000);
-		check_death(philo);
+		if (check_death(philo) == DEATH)
+			return (DEATH);
 		slept = get_time_since(start_time);
 	}
 }

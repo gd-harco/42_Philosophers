@@ -23,6 +23,7 @@ int	init_threads(t_data *data)
 			return (detach_threads_error(data->philos, i),
 				exit_free_data(data));
 	}
+	msleep(1000, NULL, NULL);
 	pthread_mutex_unlock(&data->mutex_list.sync);
 	return (EXIT_SUCCESS);
 }

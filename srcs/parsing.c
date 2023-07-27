@@ -49,7 +49,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	data->forks = NULL;
 	data->philos = NULL;
-	data->startup_time = get_current_time();
+//	data->startup_time = get_current_time();
 	return (EXIT_SUCCESS);
 }
 

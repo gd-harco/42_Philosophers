@@ -54,6 +54,5 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	philo[i]->left_fork = forks;
 	if (i > 0)
 		philo[i]->right_fork = philo[i - 1]->left_fork;
-	philo[i]->startup_time = data->startup_time;
 	philo[i]->mutex_list = &data->mutex_list;
 }

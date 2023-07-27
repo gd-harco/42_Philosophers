@@ -22,13 +22,13 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	while (true)
 	{
-//		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
-//		if (data.mutex_list.dead_philo_check)
-//		{
-//			pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
-//			break ;
-//		}
-//		pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
+		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
+		if (data.mutex_list.dead_philo_check)
+		{
+			pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
 	}
 	exit_death(&data);
 	return (EXIT_SUCCESS);

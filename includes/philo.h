@@ -22,7 +22,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <stdint.h>
 
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
@@ -56,7 +55,7 @@ typedef struct s_philo
 	int				eat_goal;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	uint64_t		startup_time;
+	int				startup_time;
 }				t_philo;
 
 typedef struct s_data
@@ -71,14 +70,14 @@ typedef struct s_data
 	t_mutex_list	mutex_list;
 	t_fork			*forks;
 	t_philo			**philos;
-	uint64_t		startup_time;
+//	int				startup_time;
 }					t_data;
 
 //----------- Function -----------//
 //########### TIME_C ###########//
-uint64_t	get_time_since(uint64_t initial_time);
-uint64_t		get_current_time(void);
-void 	ft_usleep(uint64_t ms_to_sleep, t_philo *philo, int *time_since_eat);
+int		get_time_since(int initial_time);
+int		get_current_time(void);
+void	msleep(int ms_to_sleep, t_philo *philo, int *time_since_eat);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);

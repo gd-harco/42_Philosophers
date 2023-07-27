@@ -30,6 +30,7 @@ struct s_fork
 {
 	t_fork			*previous;
 	int				fork_id;
+	bool			fork_available;
 	pthread_mutex_t	f_mutex;
 	t_fork			*next;
 };
@@ -93,6 +94,7 @@ void	philos_free(t_philo **philo);
 //########### FORK_UTILS_C ###########//
 int		create_forks(t_data *data);
 void	fork_free(t_fork *forks);
+bool	get_fork_availability(t_fork *fork);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

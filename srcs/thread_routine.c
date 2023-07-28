@@ -83,16 +83,18 @@ static int take_forks(t_philo *philo)
 			return (DEATH);
 	}
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
-	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	philo->left_fork->fork_available = false;
+	pthread_mutex_unlock(&philo->left_fork->f_mutex);
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	if (!philo->mutex_list->dead_philo_check)
 		printf("%lld %d has taken a fork\n", get_time_since(philo->startup_time), philo->philo_id);
-	pthread_mutex_unlock(&philo->left_fork->f_mutex);
+	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
+	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	philo->right_fork->fork_available = false;
+	pthread_mutex_unlock(&philo->right_fork->f_mutex);
+	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	if (!philo->mutex_list->dead_philo_check)
 		printf("%lld %d has taken a fork\n", get_time_since(philo->startup_time), philo->philo_id);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
-	pthread_mutex_unlock(&philo->right_fork->f_mutex);
 	return (EXIT_SUCCESS);
 }

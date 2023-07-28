@@ -17,7 +17,7 @@ void	*thread_routine(void *thread)
 	if (philo->philo_id % 2 == 1)
 	{
 		philo_think(philo);
-		usleep(100);
+		usleep(10);
 	}
 	while (philo->mutex_list->dead_philo_check == false)
 	{

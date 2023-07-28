@@ -50,12 +50,12 @@ typedef struct s_philo
 	bool			is_alive;
 	pthread_t		thread;
 	t_mutex_list	*mutex_list;
-	t_ms			time_to_die;
-	t_ms			time_to_eat;
-	t_ms			time_to_sleep;
-	t_ms			time_since_eat;
-	t_ms			time_of_last_meal;
-	t_ms			startup_time;
+	suseconds_t		time_to_die;
+	suseconds_t		time_to_eat;
+	suseconds_t		time_to_sleep;
+	suseconds_t		time_since_eat;
+	struct timeval	time_of_last_meal;
+	struct timeval	startup_time;
 	int				eat_goal;
 	int				eat_count;
 	t_fork			*left_fork;
@@ -111,6 +111,9 @@ void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
 int check_death(t_philo *philo);
+
+
+void	print_action(t_philo *philo, char *action);
 
 
 # define DEATH 666

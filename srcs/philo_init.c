@@ -49,7 +49,7 @@ void	create_one_philo(t_philo **philo, t_data *data, int i)
 	philo[i]->time_to_die = data->time_to_die;
 	philo[i]->time_to_eat = data->time_to_eat;
 	philo[i]->time_to_sleep = data->time_to_sleep;
-	while (forks->fork_id != (int)(i + 1))
+	while (forks->fork_id != i + 1)
 		forks = forks->next;
 	philo[i]->left_fork = forks;
 	if (i > 0)

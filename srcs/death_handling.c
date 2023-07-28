@@ -3,26 +3,22 @@
 
 void	call_goal_achieve(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->mutex_list->print_mutex);
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	philo->is_alive = false;
-	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
-
 	philo->mutex_list->dead_philo_check = true;
+	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 }
 
 
 void	call_death(t_philo *philo)
 {
-
-	pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	if (!philo->mutex_list->dead_philo_check)
-		printf("%lld %d died\n", get_time_since(philo->startup_time), philo->philo_id);
+	print_action(philo, "died");
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	philo->mutex_list->dead_philo_check = true;
 	philo->is_alive = false;
 	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
-	pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 }
 
 void	fork_free(t_fork *forks)
@@ -54,6 +50,7 @@ void	mutex_list_destroy(t_mutex_list *mutex_list)
 {
 	pthread_mutex_destroy(&mutex_list->print_mutex);
 	pthread_mutex_destroy(&mutex_list->is_alive_mutex);
+	pthread_mutex_destroy(&mutex_list->sync);
 }
 
 void	exit_death(t_data *data)
@@ -70,13 +67,15 @@ void	exit_death(t_data *data)
 
 int	check_death(t_philo *philo)
 {
-	t_ms	current_time;
+	struct timeval	current_time;
 
-	current_time = get_current_time();
-	if (current_time - philo->time_of_last_meal >= philo->time_to_die)
+	gettimeofday(&current_time, NULL);
+	current_time.tv_sec -= philo->time_of_last_meal.tv_sec;
+	current_time.tv_usec -= philo->time_of_last_meal.tv_usec;
+	if ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000) > philo->time_to_die)
 	{
 		call_death(philo);
 		return (DEATH);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

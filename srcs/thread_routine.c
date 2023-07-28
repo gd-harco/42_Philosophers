@@ -13,12 +13,13 @@ void	*thread_routine(void *thread)
 	pthread_mutex_lock(&philo->mutex_list->sync);
 	pthread_mutex_unlock(&philo->mutex_list->sync);
 	philo->startup_time = get_current_time();
+	philo->time_of_last_meal = philo->startup_time;
 	if (philo->philo_id % 2 == 1)
 	{
 		philo_think(philo);
 		usleep(100);
 	}
-	while (philo->is_alive)
+	while (philo->mutex_list->dead_philo_check == false)
 	{
 		if (philo_eat(philo) == DEATH
 		|| philo_sleep(philo) == DEATH)

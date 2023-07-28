@@ -60,27 +60,20 @@ void	exit_death(t_data *data)
 {
 	int	i;
 
-	i = -1;
-	while (data->philos[++i])
-		data->philos[i]->is_alive = false;
 	i =-1;
 	while (data->philos[++i])
 		pthread_join(data->philos[i]->thread, NULL);
 	fork_free(data->forks);
 	philos_free(data->philos);
-	pthread_mutex_unlock(&data->mutex_list.print_mutex);
 	mutex_list_destroy(&data->mutex_list);
 }
 
 int	check_death(t_philo *philo)
 {
-	struct timeval	current_time;
-	t_ms 			calculated_time;
+	t_ms	current_time;
 
-	gettimeofday(&current_time, NULL);
-	calculated_time = (current_time.tv_sec * 1000)
-			+ (current_time.tv_usec / 1000);
-	if (calculated_time - philo->startup_time >= philo->time_to_die)
+	current_time = get_current_time();
+	if (current_time - philo->time_of_last_meal >= philo->time_to_die)
 	{
 		call_death(philo);
 		return (DEATH);

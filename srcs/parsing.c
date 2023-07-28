@@ -39,7 +39,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	else
 	{
 		data->philo_eat_goal = false;
-		data->nb_goal = 0;
+		data->nb_goal = -1;
 	}
 	init_mutex_list(data);
 	data->nb_of_philo = ft_atoi(argv[1]);

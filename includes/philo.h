@@ -6,7 +6,7 @@
 /*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:43:07 by gd-harco          #+#    #+#             */
-/*   Updated: 2023/07/21 14:43:08 by gd-harco         ###   ########lyon.fr   */
+/*   Updated: 2023/07/29 14:55:37 by gd-harco         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int		init_threads(t_data *data);
 //########### THREAD_ROUTINE.C ###########//
 void	*thread_routine(void *thread_id);
 void	*thread_routine_solo(void *thread_id);
-
 
 //########### DEATH_HANDLING.C ###########//
 void	call_goal_achieve(t_philo *philo);

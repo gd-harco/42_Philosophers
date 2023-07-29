@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   death_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gd-harco <gd-harco@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/29 14:53:23 by gd-harco          #+#    #+#             */
+/*   Updated: 2023/07/29 14:55:18 by gd-harco         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	call_goal_achieve(t_philo *philo)
@@ -17,38 +29,6 @@ void	call_death(t_philo *philo)
 	philo->mutex_list->dead_philo_check = true;
 	philo->is_alive = false;
 	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
-}
-
-void	fork_free(t_fork *forks)
-{
-	t_fork	*current;
-	t_fork	*next;
-
-	current = forks;
-	while (current)
-	{
-		next = current->next;
-		pthread_mutex_destroy(&current->f_mutex);
-		free(current);
-		current = next;
-	}
-}
-
-void	philos_free(t_philo **philo)
-{
-	int	i;
-
-	i = -1;
-	while (philo[++i])
-		free(philo[i]);
-	free(philo);
-}
-
-void	mutex_list_destroy(t_mutex_list *mutex_list)
-{
-	pthread_mutex_destroy(&mutex_list->print_mutex);
-	pthread_mutex_destroy(&mutex_list->is_alive_mutex);
-	pthread_mutex_destroy(&mutex_list->sync);
 }
 
 void	exit_death(t_data *data)

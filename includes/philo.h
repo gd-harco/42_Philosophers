@@ -77,45 +77,47 @@ typedef struct s_data
 }					t_data;
 
 //----------- Function -----------//
-//########### TIME_C ###########//
-t_ms	get_time_since(t_ms initial_time);
-t_ms	get_current_time(void);
-int		msleep(t_ms ms_to_sleep, t_philo *philo);
-
-//########### PARSING_C ###########//
-int		parse_argv(int argc, char **argv, t_data *data);
-
-//########### FREE_UTILS_C ###########//
-int		exit_free_data(t_data *data);
-void	mutex_list_destroy(t_mutex_list *mutex_list);
-
-//########### THREAD_INIT_C ###########//
-int		init_philo_fork(t_data *data);
-void	philos_free(t_philo **philo);
-
-//########### FORK_UTILS_C ###########//
-int		create_forks(t_data *data);
-void	fork_free(t_fork *forks);
-int		odd_philo_take_forks(t_philo *philo);
-int		even_philo_take_forks(t_philo *philo);
-
-//########### UTILITY_FUNCTIONS ###########//
-int		ft_atoi(const char *str);
-bool	is_event(int philo_id);
-
-int		init_threads(t_data *data);
-
-//########### THREAD_ROUTINE.C ###########//
-void	*thread_routine(void *thread_id);
-void	*thread_routine_solo(void *thread_id);
-
 //########### DEATH_HANDLING.C ###########//
 void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
 int		check_death(t_philo *philo);
 
+//########### FORK_UTILS_C ###########//
+int		create_forks(t_data *data);
+int		odd_philo_take_forks(t_philo *philo);
+int		even_philo_take_forks(t_philo *philo);
+
+//########### FREE_UTILS_C ###########//
+int		exit_free_data(t_data *data);
+void	mutex_list_destroy(t_mutex_list *mutex_list);
+void	fork_free(t_fork *forks);
+void	philos_free(t_philo **philo);
+
+//########### GLOBAL_UTILS_C ###########//
+int		ft_atoi(const char *str);
+int		init_threads(t_data *data);
+
+//########### LAUNCH_THREADS_C ###########//
+int		init_threads(t_data *data);
+
+//########### PARSING_C ###########//
+int		parse_argv(int argc, char **argv, t_data *data);
+
+//########### PHILO_INIT_C ###########//
+int		init_philo_fork(t_data *data);
+
+//########## SOLO_PHILO_C ###########//
+void	*thread_routine_solo(void *thread_id);
+
+//########### THREAD_ROUTINE.C ###########//
+void	*thread_routine(void *thread_id);
 void	print_action(t_philo *philo, char *action);
+
+//########### TIME_C ###########//
+int		msleep(t_ms ms_to_sleep, t_philo *philo);
+int		compare_timeval(struct timeval *t1, struct timeval *t2);
+void	add_ms_tv(struct timeval *tv, long milliseconds);
 
 # define DEATH 666
 //----------- Error message -----------//

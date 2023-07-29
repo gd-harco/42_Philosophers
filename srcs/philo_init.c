@@ -12,8 +12,8 @@
 
 #include "philo.h"
 
-int		create_philos(t_data *data);
-void	create_one_philo(t_philo **philo, t_data *data, int i);
+static int	create_philos(t_data *data);
+static void	create_one_philo(t_philo **philo, t_data *data, int i);
 
 int	init_philo_fork(t_data *data)
 {
@@ -23,7 +23,7 @@ int	init_philo_fork(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	create_philos(t_data *data)
+static int	create_philos(t_data *data)
 {
 	t_philo	**philo;
 	size_t	i;
@@ -49,7 +49,7 @@ int	create_philos(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	create_one_philo(t_philo **philo, t_data *data, int i)
+static void	create_one_philo(t_philo **philo, t_data *data, int i)
 {
 	t_fork	*forks;
 

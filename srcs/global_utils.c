@@ -12,8 +12,8 @@
 
 #include "philo.h"
 
-bool		ft_isdigit(int c);
-static int	ft_overflow(int sign);
+static bool		ft_isdigit(int c);
+static int		ft_overflow(int sign);
 
 int	ft_atoi(const char *str)
 {
@@ -42,7 +42,7 @@ int	ft_atoi(const char *str)
 	return ((int)result * sign);
 }
 
-bool	ft_isdigit(int c)
+static bool	ft_isdigit(int c)
 {
 	if ((c >= 48 && c <= 57))
 		return (true);
@@ -55,11 +55,4 @@ static int	ft_overflow(int sign)
 		return ((int)LONG_MIN);
 	else
 		return ((int)LONG_MAX);
-}
-
-bool	is_event(int philo_id)
-{
-	if (philo_id % 2 == 0)
-		return (true);
-	return (false);
 }

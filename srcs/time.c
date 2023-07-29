@@ -53,5 +53,4 @@ int	msleep(t_ms ms_to_sleep, t_philo *philo)
 			return (DEATH);
 		usleep(10);
 	}
-	return (0);
 }

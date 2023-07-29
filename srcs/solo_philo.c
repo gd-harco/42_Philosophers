@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int	take_forks_solo(t_philo *philo);
+static void	take_forks_solo(t_philo *philo);
 
 void	*thread_routine_solo(void *thread_id)
 {
@@ -25,12 +25,12 @@ void	*thread_routine_solo(void *thread_id)
 	return (NULL);
 }
 
-static int	take_forks_solo(t_philo *philo)
+static void	take_forks_solo(t_philo *philo)
 {
 	if (check_death(philo) == DEATH)
-		return (DEATH);
+		return ;
 	print_action(philo, "has taken a fork");
 	while (check_death(philo) != DEATH)
 		msleep(5, philo);
-	return (DEATH);
+	return ;
 }

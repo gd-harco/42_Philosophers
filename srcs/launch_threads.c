@@ -12,8 +12,7 @@
 
 #include "philo.h"
 
-void	*thread_routine(void *thread_id);
-int		detach_threads_error(t_philo **philos, int i);
+static int	detach_threads_error(t_philo **philos, int i);
 
 /**
  * @brief Initialise all of the threads. \n
@@ -53,7 +52,7 @@ int	init_threads(t_data *data)
  * @param i The index number of the failed thread
  * @return EXIT_FAILURE
  */
-int	detach_threads_error(t_philo **philos, int i)
+static int	detach_threads_error(t_philo **philos, int i)
 {
 	while (--i <= 0)
 		pthread_detach(philos[i]->thread);

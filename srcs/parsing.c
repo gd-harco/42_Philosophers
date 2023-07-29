@@ -12,9 +12,8 @@
 
 #include "philo.h"
 
-bool	check_minus(int argc, char **argv);
-bool	invalid_char(int argc, char **argv);
-int		init_mutex_list(t_data *data);
+static bool	invalid_char(int argc, char **argv);
+static int	init_mutex_list(t_data *data);
 
 /**
  * @brief Parse argv and store it in data. Set nb_goal to 0 if not specified.\n
@@ -59,7 +58,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
  * @param argv
  * @return true if one invalid character is detected, false otherwise.
  */
-bool	invalid_char(int argc, char **argv)
+static bool	invalid_char(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -79,7 +78,7 @@ bool	invalid_char(int argc, char **argv)
 	return (false);
 }
 
-int	init_mutex_list(t_data *data)
+static int	init_mutex_list(t_data *data)
 {
 	data->mutex_list.dead_philo_check = false;
 	pthread_mutex_init(&data->mutex_list.print_mutex, NULL);

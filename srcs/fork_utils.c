@@ -35,30 +35,6 @@ int	create_forks(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static t_fork	*new_fork(t_fork *previous, int id)
-{
-	t_fork	*fork;
-
-	fork = malloc(sizeof(t_fork));
-	if (!fork)
-		return (NULL);
-	fork->previous = previous;
-	fork->fork_id = id;
-	fork->fork_available = true;
-	if (pthread_mutex_init(&fork->f_mutex, NULL) != 0)
-		return (free(fork), NULL);
-	fork->next = NULL;
-	return (fork);
-}
-
-static void	add_back(t_fork *previous, t_fork *new, t_fork **list_data)
-{
-	if (!previous)
-		*list_data = new;
-	else
-		previous->next = new;
-}
-
 int	even_philo_take_forks(t_philo *philo)
 {
 	if (check_death(philo) == DEATH)
@@ -101,4 +77,28 @@ int	odd_philo_take_forks(t_philo *philo)
 		return (DEATH);
 	}
 	return (EXIT_SUCCESS);
+}
+
+static t_fork	*new_fork(t_fork *previous, int id)
+{
+	t_fork	*fork;
+
+	fork = malloc(sizeof(t_fork));
+	if (!fork)
+		return (NULL);
+	fork->previous = previous;
+	fork->fork_id = id;
+	fork->fork_available = true;
+	if (pthread_mutex_init(&fork->f_mutex, NULL) != 0)
+		return (free(fork), NULL);
+	fork->next = NULL;
+	return (fork);
+}
+
+static void	add_back(t_fork *previous, t_fork *new, t_fork **list_data)
+{
+	if (!previous)
+		*list_data = new;
+	else
+		previous->next = new;
 }

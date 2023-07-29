@@ -38,6 +38,7 @@ void	*thread_routine(void *thread)
 			|| philo_sleep(philo) == DEATH)
 			return (NULL);
 		print_action(philo, "is thinking");
+		usleep(500);
 		pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	}
 	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);

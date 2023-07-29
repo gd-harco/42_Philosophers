@@ -105,6 +105,8 @@ int		init_threads(t_data *data);
 
 //########### THREAD_ROUTINE.C ###########//
 void	*thread_routine(void *thread_id);
+void	*thread_routine_solo(void *thread_id);
+
 
 //########### DEATH_HANDLING.C ###########//
 void	call_goal_achieve(t_philo *philo);

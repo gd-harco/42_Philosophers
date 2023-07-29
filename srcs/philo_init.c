@@ -30,7 +30,10 @@ int	create_philos(t_data *data)
 		create_one_philo(philo, data, i);
 	}
 	philo[i] = NULL;
-	philo[0]->right_fork = philo[i - 1]->left_fork;
+	if (data->nb_of_philo == 1)
+		philo[0]->right_fork = NULL;
+	else
+		philo[0]->right_fork = philo[i - 1]->left_fork;
 	return (EXIT_SUCCESS);
 }
 

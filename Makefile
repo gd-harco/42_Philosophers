@@ -16,11 +16,12 @@ DIR_HEADERS		=	includes/
 
 HEADERS_LIST	=	philo.h
 
-SRCS_LIST		=	death_handling.c	fork_utils.c	\
-					free_data.c			global_utils.c	\
-					launch_threads.c	main.c			\
-					parsing.c			philo_init.c	\
-					thread_routine.c	time.c
+SRCS_LIST		=	death_handling.c	fork_utils.c		\
+					free_data.c			global_utils.c		\
+					launch_threads.c	main.c				\
+					parsing.c			philo_init.c		\
+					solo_philo.c		thread_routine.c	\
+					time.c
 
 HEADERS			=	${HEADERS_LIST:%.h=${DIR_HEADERS}%.h}
 

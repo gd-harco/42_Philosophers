@@ -14,6 +14,14 @@ int	init_threads(t_data *data)
 {
 	size_t	i;
 
+	if (data->nb_of_philo == 1)
+	{
+		if (pthread_create(&data->philos[0]->thread, NULL,
+				&thread_routine_solo, data->philos[0]) != 0)
+			return (detach_threads_error(data->philos, 0),
+				exit_free_data(data));
+		return (EXIT_SUCCESS);
+	}
 	i = -1;
 	pthread_mutex_lock(&data->mutex_list.sync);
 	while (++i < data->nb_of_philo)

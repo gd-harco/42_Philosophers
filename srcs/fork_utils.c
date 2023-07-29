@@ -35,7 +35,7 @@ int	create_forks(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	even_philo_take_forks(t_philo *philo)
+int	odd_philo_take_forks(t_philo *philo)
 {
 	if (check_death(philo) == DEATH)
 		return (DEATH);
@@ -57,7 +57,7 @@ int	even_philo_take_forks(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
-int	odd_philo_take_forks(t_philo *philo)
+int	even_philo_take_forks(t_philo *philo)
 {
 	if (check_death(philo) == DEATH)
 		return (DEATH);

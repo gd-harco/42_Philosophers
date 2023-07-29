@@ -31,7 +31,7 @@ OBJS			=	${SRCS_LIST:%.c=${DIR_OBJS}%.o}
 
 CC				=	cc
 
-CFLAGS			=	-Wall -Werror -Wextra -g3 -fsanitize=thread
+CFLAGS			=	-Wall -Werror -Wextra
 
 FRAMEWORKS		=	-lpthread -D_REENTRANT
 

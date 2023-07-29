@@ -23,7 +23,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-typedef long long int t_ms;
+typedef long long int	t_ms;
 //----------- Struct -----------//
 typedef struct s_fork	t_fork;
 
@@ -80,7 +80,7 @@ typedef struct s_data
 //########### TIME_C ###########//
 t_ms	get_time_since(t_ms initial_time);
 t_ms	get_current_time(void);
-int msleep(t_ms ms_to_sleep, t_philo *philo);
+int		msleep(t_ms ms_to_sleep, t_philo *philo);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
@@ -110,11 +110,9 @@ void	*thread_routine(void *thread_id);
 void	call_goal_achieve(t_philo *philo);
 void	call_death(t_philo *philo);
 void	exit_death(t_data *data);
-int check_death(t_philo *philo);
-
+int		check_death(t_philo *philo);
 
 void	print_action(t_philo *philo, char *action);
-
 
 # define DEATH 666
 //----------- Error message -----------//
@@ -122,5 +120,6 @@ void	print_action(t_philo *philo, char *action);
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
+# define ERROR_INITIALISATION "philo: error: initialisation failed\n"
 
 #endif

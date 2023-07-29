@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	if (parse_argv(argc, argv, &data) == EXIT_FAILURE
 		|| init_philo_fork(&data) == EXIT_FAILURE
 		|| init_threads(&data) == EXIT_FAILURE)
-		return (EXIT_FAILURE); // TODO error message
+		return (printf (ERROR_INITIALISATION), EXIT_FAILURE);
 	while (true)
 	{
 		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);

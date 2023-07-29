@@ -15,15 +15,6 @@
 static void		add_back(t_fork *previous, t_fork *new, t_fork **list_data);
 static t_fork	*new_fork(t_fork *previous, int id);
 
-bool	get_fork_availability(t_fork *fork)
-{
-	pthread_mutex_lock(&fork->f_mutex);
-	if (fork->fork_available)
-		return (pthread_mutex_unlock(&fork->f_mutex), true);
-	else
-		return (pthread_mutex_unlock(&fork->f_mutex), false);
-}
-
 int	create_forks(t_data *data)
 {
 	t_fork	*previous;
@@ -66,4 +57,48 @@ static void	add_back(t_fork *previous, t_fork *new, t_fork **list_data)
 		*list_data = new;
 	else
 		previous->next = new;
+}
+
+int	even_philo_take_forks(t_philo *philo)
+{
+	if (check_death(philo) == DEATH)
+		return (DEATH);
+	pthread_mutex_lock(&philo->left_fork->f_mutex);
+	print_action(philo, "has taken a fork");
+	if (check_death(philo) == DEATH)
+	{
+		pthread_mutex_unlock(&philo->left_fork->f_mutex);
+		return (DEATH);
+	}
+	pthread_mutex_lock(&philo->right_fork->f_mutex);
+	print_action(philo, "has taken a fork");
+	if (check_death(philo) == DEATH)
+	{
+		pthread_mutex_unlock(&philo->left_fork->f_mutex);
+		pthread_mutex_unlock(&philo->right_fork->f_mutex);
+		return (DEATH);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	odd_philo_take_forks(t_philo *philo)
+{
+	if (check_death(philo) == DEATH)
+		return (DEATH);
+	pthread_mutex_lock(&philo->right_fork->f_mutex);
+	print_action(philo, "has taken a fork");
+	if (check_death(philo) == DEATH)
+	{
+		pthread_mutex_unlock(&philo->right_fork->f_mutex);
+		return (DEATH);
+	}
+	pthread_mutex_lock(&philo->left_fork->f_mutex);
+	print_action(philo, "has taken a fork");
+	if (check_death(philo) == DEATH)
+	{
+		pthread_mutex_unlock(&philo->left_fork->f_mutex);
+		pthread_mutex_unlock(&philo->right_fork->f_mutex);
+		return (DEATH);
+	}
+	return (EXIT_SUCCESS);
 }

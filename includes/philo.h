@@ -85,8 +85,9 @@ int		msleep(t_ms ms_to_sleep, t_philo *philo);
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
 
-//########### FREE_DATA_C ###########//
+//########### FREE_UTILS_C ###########//
 int		exit_free_data(t_data *data);
+void	mutex_list_destroy(t_mutex_list *mutex_list);
 
 //########### THREAD_INIT_C ###########//
 int		init_philo_fork(t_data *data);
@@ -95,7 +96,8 @@ void	philos_free(t_philo **philo);
 //########### FORK_UTILS_C ###########//
 int		create_forks(t_data *data);
 void	fork_free(t_fork *forks);
-bool	get_fork_availability(t_fork *fork);
+int		odd_philo_take_forks(t_philo *philo);
+int		even_philo_take_forks(t_philo *philo);
 
 //########### UTILITY_FUNCTIONS ###########//
 int		ft_atoi(const char *str);

@@ -48,8 +48,10 @@ int	check_death(t_philo *philo)
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
+	pthread_mutex_lock(&philo->time_of_last_meal_mutex);
 	current_time.tv_sec -= philo->time_of_last_meal.tv_sec;
 	current_time.tv_usec -= philo->time_of_last_meal.tv_usec;
+	pthread_mutex_unlock(&philo->time_of_last_meal_mutex);
 	if ((current_time.tv_sec * 1000
 			+ current_time.tv_usec / 1000) > philo->time_to_die)
 	{

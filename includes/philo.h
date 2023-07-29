@@ -49,6 +49,7 @@ typedef struct s_philo
 	int				philo_id;
 	bool			is_alive;
 	pthread_t		thread;
+	pthread_mutex_t	time_of_last_meal_mutex;
 	t_mutex_list	*mutex_list;
 	suseconds_t		time_to_die;
 	suseconds_t		time_to_eat;
@@ -85,8 +86,8 @@ int		check_death(t_philo *philo);
 
 //########### FORK_UTILS_C ###########//
 int		create_forks(t_data *data);
-int		odd_philo_take_forks(t_philo *philo);
-int		even_philo_take_forks(t_philo *philo);
+void	odd_philo_take_forks(t_philo *philo);
+void	even_philo_take_forks(t_philo *philo);
 
 //########### FREE_UTILS_C ###########//
 int		exit_free_data(t_data *data);

@@ -33,11 +33,15 @@ int	main(int argc, char **argv)
 				break ;
 			if (data.philo_eat_goal)
 			{
+				pthread_mutex_lock(&data.philos[i]->is_satiated_mutex);
 				if (data.philos[i]->is_satiated)
 					philo_satieted++;
+				pthread_mutex_unlock(&data.philos[i]->is_satiated_mutex);
 				if (philo_satieted == data.nb_of_philo)
 				{
+					pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
 					data.mutex_list.dead_philo_check = true;
+					pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
 					exit_death(&data);
 					return (EXIT_SUCCESS);
 				}

@@ -51,6 +51,7 @@ typedef struct s_philo
 	bool			is_satiated;
 	pthread_t		thread;
 	pthread_mutex_t	time_of_last_meal_mutex;
+	pthread_mutex_t	is_satiated_mutex;
 	t_mutex_list	*mutex_list;
 	suseconds_t		time_to_die;
 	suseconds_t		time_to_eat;

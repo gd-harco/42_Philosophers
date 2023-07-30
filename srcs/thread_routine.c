@@ -63,7 +63,11 @@ static void	philo_eat(t_philo *philo)
 	{
 		philo->eat_count++;
 		if (philo->eat_count == philo->eat_goal)
+		{
+			pthread_mutex_lock(&philo->is_satiated_mutex);
 			philo->is_satiated = true;
+			pthread_mutex_unlock(&philo->is_satiated_mutex);
+		}
 	}
 	return ;
 }

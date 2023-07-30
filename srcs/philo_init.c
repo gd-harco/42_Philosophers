@@ -62,6 +62,7 @@ static void	create_one_philo(t_philo **philo, t_data *data, int i)
 	pthread_mutex_init(&philo[i]->time_of_last_meal_mutex, NULL);
 	philo[i]->philo_id = i + 1;
 	philo[i]->is_alive = true;
+	philo[i]->is_satiated = false;
 	philo[i]->time_to_die = data->time_to_die;
 	philo[i]->time_to_eat = data->time_to_eat;
 	philo[i]->time_to_sleep = data->time_to_sleep;

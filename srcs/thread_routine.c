@@ -63,7 +63,7 @@ static void	philo_eat(t_philo *philo)
 	{
 		philo->eat_count++;
 		if (philo->eat_count == philo->eat_goal)
-			return (call_goal_achieve(philo));
+			philo->is_satiated = true;
 	}
 	return ;
 }

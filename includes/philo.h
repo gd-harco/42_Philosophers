@@ -48,6 +48,7 @@ typedef struct s_philo
 {
 	int				philo_id;
 	bool			is_alive;
+	bool			is_satiated;
 	pthread_t		thread;
 	pthread_mutex_t	time_of_last_meal_mutex;
 	t_mutex_list	*mutex_list;

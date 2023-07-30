@@ -1,4 +1,4 @@
-# <p align="center">Philosophers Project</p>
+# <p align="center">42_Philosophers</p>
 
 <p align="center">Final grade :<br>
 <a href="https://github.com/JaeSeoKim/badge42"><img src="https://badge42.vercel.app/api/v2/cle01db6o00650fmmx6igm6z3/project/3172365" alt="gd-harco's 42 Philosophers Score" /></a>

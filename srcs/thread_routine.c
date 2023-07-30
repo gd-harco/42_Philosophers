@@ -91,10 +91,10 @@ void	print_action(t_philo *philo, char *action)
 	struct timeval	time;
 
 	pthread_mutex_lock(&philo->mutex_list->print_mutex);
+	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	gettimeofday(&time, NULL);
 	time.tv_sec -= philo->startup_time.tv_sec;
 	time.tv_usec -= philo->startup_time.tv_usec;
-	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	if (!philo->mutex_list->dead_philo_check)
 		printf("%ld\t%d %s\n", (time.tv_sec * 1000
 				+ time.tv_usec / 1000), philo->philo_id, action);

@@ -12,49 +12,58 @@
 
 #include "philo.h"
 
+static int	monitoring(t_data *data);
+static int	check_satieted(size_t i, t_data *data);
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	size_t	i;
-	size_t	philo_satieted;
 
 	if (parse_argv(argc, argv, &data) == EXIT_FAILURE
 		|| init_philo_fork(&data) == EXIT_FAILURE
 		|| init_threads(&data) == EXIT_FAILURE)
 		return (printf (ERROR_INITIALISATION), EXIT_FAILURE);
 	msleep(data.time_to_die / 2, NULL);
+	return (monitoring(&data));
+}
+
+int	monitoring(t_data *data)
+{
+	size_t	i;
+
 	while (true)
 	{
-		philo_satieted = 0;
+		data->philo_satieted = 0;
 		i = -1;
-		while (++i < data.nb_of_philo)
+		while (++i < data->nb_of_philo && check_death(data->philos[i]) != DEATH)
 		{
-			if (check_death(data.philos[i]) == DEATH)
-				break ;
-			if (data.philo_eat_goal)
-			{
-				pthread_mutex_lock(&data.philos[i]->is_satiated_mutex);
-				if (data.philos[i]->is_satiated)
-					philo_satieted++;
-				pthread_mutex_unlock(&data.philos[i]->is_satiated_mutex);
-				if (philo_satieted == data.nb_of_philo)
-				{
-					pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
-					data.mutex_list.dead_philo_check = true;
-					pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
-					exit_death(&data);
-					return (EXIT_SUCCESS);
-				}
-			}
+			if (data->philo_eat_goal && check_satieted(i, data) == EXIT_SUCCESS)
+				return (EXIT_SUCCESS);
 		}
-		pthread_mutex_lock(&data.mutex_list.is_alive_mutex);
-		if (data.mutex_list.dead_philo_check)
+		pthread_mutex_lock(&data->mutex_list.is_alive_mutex);
+		if (data->mutex_list.dead_philo_check)
 		{
-			pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
-			break ;
+			pthread_mutex_unlock(&data->mutex_list.is_alive_mutex);
+			exit_death(data);
+			return (EXIT_SUCCESS);
 		}
-		pthread_mutex_unlock(&data.mutex_list.is_alive_mutex);
+		pthread_mutex_unlock(&data->mutex_list.is_alive_mutex);
 	}
-	exit_death(&data);
-	return (EXIT_SUCCESS);
+}
+
+static int	check_satieted(size_t i, t_data *data)
+{
+	pthread_mutex_lock(&data->philos[i]->is_satiated_mutex);
+	if (data->philos[i]->is_satiated)
+		data->philo_satieted++;
+	pthread_mutex_unlock(&data->philos[i]->is_satiated_mutex);
+	if (data->philo_satieted == data->nb_of_philo)
+	{
+		pthread_mutex_lock(&data->mutex_list.is_alive_mutex);
+		data->mutex_list.dead_philo_check = true;
+		pthread_mutex_unlock(&data->mutex_list.is_alive_mutex);
+		exit_death(data);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }

@@ -70,6 +70,7 @@ typedef struct s_data
 	bool			philo_dead;
 	bool			philo_eat_goal;
 	size_t			nb_of_philo;
+	size_t			philo_satieted;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;

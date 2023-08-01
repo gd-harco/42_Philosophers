@@ -35,46 +35,20 @@ int	create_forks(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	odd_philo_take_forks(t_philo *philo)
+void	odd_philo_take_forks(t_philo *philo)
 {
-	if (check_death(philo) == DEATH)
-		return (DEATH);
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
 	print_action(philo, "has taken a fork");
-	if (check_death(philo) == DEATH)
-	{
-		pthread_mutex_unlock(&philo->left_fork->f_mutex);
-		return (DEATH);
-	}
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	print_action(philo, "has taken a fork");
-	if (check_death(philo) == DEATH)
-	{
-		pthread_mutex_unlock(&philo->left_fork->f_mutex);
-		pthread_mutex_unlock(&philo->right_fork->f_mutex);
-		return (DEATH);
-	}
-	return (EXIT_SUCCESS);
+	return ;
 }
 
-int	even_philo_take_forks(t_philo *philo)
+void	even_philo_take_forks(t_philo *philo)
 {
-	if (check_death(philo) == DEATH)
-		return (DEATH);
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	print_action(philo, "has taken a fork");
-	if (check_death(philo) == DEATH)
-	{
-		pthread_mutex_unlock(&philo->right_fork->f_mutex);
-		return (DEATH);
-	}
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
 	print_action(philo, "has taken a fork");
-	if (check_death(philo) == DEATH)
-	{
-		pthread_mutex_unlock(&philo->left_fork->f_mutex);
-		pthread_mutex_unlock(&philo->right_fork->f_mutex);
-		return (DEATH);
-	}
-	return (EXIT_SUCCESS);
+	return ;
 }

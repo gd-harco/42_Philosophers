@@ -23,7 +23,7 @@ static int	detach_threads_error(t_philo **philos, int i);
  */
 int	init_threads(t_data *data)
 {
-	size_t	i;
+	long	i;
 
 	if (data->nb_of_philo == 1)
 	{

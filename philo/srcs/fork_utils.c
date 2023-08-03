@@ -19,7 +19,7 @@ int	create_forks(t_data *data)
 {
 	t_fork	*previous;
 	t_fork	*current;
-	size_t	i;
+	long	i;
 
 	i = 0;
 	data->forks = NULL;

@@ -68,12 +68,12 @@ typedef struct s_data
 {
 	bool			philo_dead;
 	bool			philo_eat_goal;
-	size_t			nb_of_philo;
-	size_t			philo_satieted;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	size_t			nb_goal;
+	long			nb_of_philo;
+	long			philo_satieted;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			nb_goal;
 	t_mutex_list	mutex_list;
 	t_fork			*forks;
 	t_philo			**philos;
@@ -98,7 +98,7 @@ void	fork_free(t_fork *forks);
 void	philos_free(t_philo **philo);
 
 //########### GLOBAL_UTILS_C ###########//
-int		ft_atoi(const char *str);
+long ft_atol(const char *str);
 int		init_threads(t_data *data);
 
 //########### LAUNCH_THREADS_C ###########//
@@ -131,7 +131,7 @@ Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
 # define NULL_ARGV "philo: error: null argument detected\n"
-# define NULL_DURATION "philo: error: duration of 0 is invalid\n"
+# define NULL_DURATION "philo: error: duration of 0 or below is invalid\n"
 # define NO_PHILO "philo: error: no philosopher to simulate\n"
 # define NULL_GOAL "philo: error: an eat goal of 0 is invalid\n"
 #endif

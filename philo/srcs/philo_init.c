@@ -26,7 +26,7 @@ int	init_philo_fork(t_data *data)
 static int	create_philos(t_data *data)
 {
 	t_philo	**philo;
-	size_t	i;
+	long	i;
 
 	philo = malloc(sizeof(t_philo *) * (data->nb_of_philo + 1));
 	if (!philo)

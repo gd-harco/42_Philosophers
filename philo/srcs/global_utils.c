@@ -15,7 +15,7 @@
 static bool		ft_isdigit(int c);
 static int		ft_overflow(int sign);
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
 	long	result;
 	int		sign;

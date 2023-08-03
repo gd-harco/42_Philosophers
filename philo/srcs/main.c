@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 
 int	monitoring(t_data *data)
 {
-	size_t	i;
+	long	i;
 
 	while (true)
 	{

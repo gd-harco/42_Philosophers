@@ -35,7 +35,7 @@ int	create_forks(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	odd_philo_take_forks(t_philo *philo)
+void	even_philo_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
 	print_action(philo, "has taken a fork");
@@ -44,7 +44,7 @@ void	odd_philo_take_forks(t_philo *philo)
 	return ;
 }
 
-void	even_philo_take_forks(t_philo *philo)
+void	odd_philo_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	print_action(philo, "has taken a fork");

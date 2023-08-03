@@ -37,19 +37,17 @@ void	add_ms_tv(struct timeval *tv, long milliseconds)
 	}
 }
 
-int	msleep(t_ms ms_to_sleep, t_philo *philo)
+void	msleep(t_ms ms_to_sleep)
 {
 	struct timeval	goal_time;
 	struct timeval	current_time;
 
-	(void)philo;
 	gettimeofday(&goal_time, NULL);
 	add_ms_tv(&goal_time, ms_to_sleep);
-	while (42)
+	gettimeofday(&current_time, NULL);
+	while (compare_timeval(&current_time, &goal_time) <0)
 	{
+		usleep(1000);
 		gettimeofday(&current_time, NULL);
-		if (compare_timeval(&current_time, &goal_time) >= 0)
-			return (0);
-		usleep(10);
 	}
 }

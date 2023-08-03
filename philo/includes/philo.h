@@ -120,7 +120,7 @@ void	*thread_routine(void *thread_id);
 void	print_action(t_philo *philo, char *action);
 
 //########### TIME_C ###########//
-int		msleep(t_ms ms_to_sleep, t_philo *philo);
+void msleep(t_ms ms_to_sleep);
 int		compare_timeval(struct timeval *t1, struct timeval *t2);
 void	add_ms_tv(struct timeval *tv, long milliseconds);
 

@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		|| init_philo_fork(&data) == EXIT_FAILURE
 		|| init_threads(&data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	msleep(data.time_to_die / 2, NULL);
+	msleep(data.time_to_die / 2);
 	return (monitoring(&data));
 }
 

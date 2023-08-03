@@ -31,6 +31,6 @@ static void	take_forks_solo(t_philo *philo)
 		return ;
 	print_action(philo, "has taken a fork");
 	while (check_death(philo) != DEATH)
-		msleep(5, philo);
+		msleep(5);
 	return ;
 }

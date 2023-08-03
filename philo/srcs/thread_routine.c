@@ -75,7 +75,7 @@ static void	philo_eat(t_philo *philo)
 static int	philo_sleep(t_philo *philo)
 {
 	print_action(philo, "is sleeping");
-	return (msleep(philo->time_to_sleep, philo));
+	msleep(philo->time_to_sleep);
 }
 
 static void	take_forks(t_philo *philo)

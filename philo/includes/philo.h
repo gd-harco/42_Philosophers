@@ -100,7 +100,7 @@ void	fork_free(t_fork *forks);
 void	philos_free(t_philo **philo);
 
 //########### GLOBAL_UTILS_C ###########//
-long ft_atol(const char *str);
+long	ft_atol(const char *str);
 int		init_threads(t_data *data);
 
 //########### LAUNCH_THREADS_C ###########//
@@ -122,10 +122,9 @@ void	*thread_routine(void *thread_id);
 void	print_action(t_philo *philo, char *action);
 
 //########### TIME_C ###########//
-void msleep(t_ms ms_to_sleep);
+void	msleep(t_ms ms_to_sleep);
 int		compare_timeval(struct timeval *t1, struct timeval *t2);
 void	add_ms_tv(struct timeval *tv, long milliseconds);
-
 
 //----------- Print color -----------//
 # define RED "\033[0;31m"

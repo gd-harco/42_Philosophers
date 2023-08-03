@@ -45,7 +45,7 @@ void	msleep(t_ms ms_to_sleep)
 	gettimeofday(&goal_time, NULL);
 	add_ms_tv(&goal_time, ms_to_sleep);
 	gettimeofday(&current_time, NULL);
-	while (compare_timeval(&current_time, &goal_time) <0)
+	while (compare_timeval(&current_time, &goal_time) < 0)
 	{
 		usleep(1000);
 		gettimeofday(&current_time, NULL);

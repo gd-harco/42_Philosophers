@@ -13,7 +13,7 @@
 #include "philo.h"
 
 static void	philo_eat(t_philo *philo);
-static void philo_sleep(t_philo *philo);
+static void	philo_sleep(t_philo *philo);
 static void	take_forks(t_philo *philo);
 
 void	*thread_routine(void *thread)
@@ -38,7 +38,6 @@ void	*thread_routine(void *thread)
 		pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
 		philo_eat(philo);
 		philo_sleep(philo);
-		print_action(philo, BLUE"is thinking");
 		usleep(500);
 		pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	}
@@ -71,8 +70,9 @@ static void	philo_eat(t_philo *philo)
 
 static void	philo_sleep(t_philo *philo)
 {
-	print_action(philo,CYAN"is sleeping");
+	print_action(philo, CYAN"is sleeping");
 	msleep(philo->time_to_sleep);
+	print_action(philo, BLUE"is thinking");
 }
 
 static void	take_forks(t_philo *philo)
@@ -83,7 +83,7 @@ static void	take_forks(t_philo *philo)
 		odd_philo_take_forks(philo);
 }
 
-void print_action(t_philo *philo, char *action)
+void	print_action(t_philo *philo, char *action)
 {
 	struct timeval	time;
 

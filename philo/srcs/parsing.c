@@ -87,10 +87,10 @@ static int	init_mutex_list(t_data *data)
 
 bool	check_null(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
-while (i < argc)
+	while (i < argc)
 	{
 		if (!argv[i][0])
 			return (true);

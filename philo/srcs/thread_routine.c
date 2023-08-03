@@ -13,7 +13,7 @@
 #include "philo.h"
 
 static void	philo_eat(t_philo *philo);
-static int	philo_sleep(t_philo *philo);
+static void philo_sleep(t_philo *philo);
 static void	take_forks(t_philo *philo);
 
 void	*thread_routine(void *thread)
@@ -28,7 +28,7 @@ void	*thread_routine(void *thread)
 	if (philo->philo_id % 2 == 1)
 	{
 		print_action(philo, "is thinking");
-		usleep(1000);
+		usleep(10);
 	}
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	while (philo->mutex_list->dead_philo_check == false)
@@ -51,12 +51,7 @@ static void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->time_of_last_meal_mutex);
 	gettimeofday(&philo->time_of_last_meal, NULL);
 	pthread_mutex_unlock(&philo->time_of_last_meal_mutex);
-	if (msleep(philo->time_to_eat, philo) == DEATH)
-	{
-		pthread_mutex_unlock(&philo->right_fork->f_mutex);
-		pthread_mutex_unlock(&philo->left_fork->f_mutex);
-		return ;
-	}
+	msleep(philo->time_to_eat);
 	pthread_mutex_unlock(&philo->right_fork->f_mutex);
 	pthread_mutex_unlock(&philo->left_fork->f_mutex);
 	if (philo->eat_goal > 0)
@@ -72,7 +67,7 @@ static void	philo_eat(t_philo *philo)
 	return ;
 }
 
-static int	philo_sleep(t_philo *philo)
+static void	philo_sleep(t_philo *philo)
 {
 	print_action(philo, "is sleeping");
 	msleep(philo->time_to_sleep);

@@ -25,6 +25,7 @@ static int	init_mutex_list(t_data *data);
  */
 int	parse_argv(int argc, char **argv, t_data *data)
 {
+	memset(data, 0, sizeof(t_data));
 	if (argc == 6)
 	{
 		data->philo_eat_goal = true;
@@ -33,12 +34,8 @@ int	parse_argv(int argc, char **argv, t_data *data)
 			return (printf(NULL_GOAL), EXIT_FAILURE);
 	}
 	else
-	{
-		data->philo_eat_goal = false;
 		data->nb_goal = -1;
-	}
 	data->nb_of_philo = ft_atol(argv[1]);
-	data->philo_dead = false;
 	data->time_to_die = ft_atol(argv[2]);
 	data->time_to_eat = ft_atol(argv[3]);
 	data->time_to_sleep = ft_atol(argv[4]);
@@ -47,8 +44,6 @@ int	parse_argv(int argc, char **argv, t_data *data)
 	if (data->time_to_die <= 0 || data->time_to_eat <= 0
 		|| data->time_to_sleep <= 0)
 		return (printf(NULL_DURATION), EXIT_FAILURE);
-	data->forks = NULL;
-	data->philos = NULL;
 	init_mutex_list(data);
 	return (EXIT_SUCCESS);
 }

@@ -24,7 +24,9 @@ void	*thread_routine(void *thread)
 	pthread_mutex_lock(&philo->mutex_list->sync);
 	pthread_mutex_unlock(&philo->mutex_list->sync);
 	gettimeofday(&philo->startup_time, NULL);
+	pthread_mutex_lock(&philo->time_of_last_meal_mutex);
 	philo->time_of_last_meal = philo->startup_time;
+	pthread_mutex_unlock(&philo->time_of_last_meal_mutex);
 	if (philo->philo_id % 2 == 1)
 	{
 		print_action(philo, BLUE"is thinking");

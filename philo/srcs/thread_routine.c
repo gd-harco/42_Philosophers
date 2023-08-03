@@ -27,7 +27,7 @@ void	*thread_routine(void *thread)
 	philo->time_of_last_meal = philo->startup_time;
 	if (philo->philo_id % 2 == 1)
 	{
-		print_action(philo, "is thinking");
+		print_action(philo, BLUE"is thinking");
 		usleep(10);
 	}
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
@@ -36,7 +36,7 @@ void	*thread_routine(void *thread)
 		pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
 		philo_eat(philo);
 		philo_sleep(philo);
-		print_action(philo, "is thinking");
+		print_action(philo, BLUE"is thinking");
 		usleep(500);
 		pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	}
@@ -47,7 +47,7 @@ void	*thread_routine(void *thread)
 static void	philo_eat(t_philo *philo)
 {
 	take_forks(philo);
-	print_action(philo, "is eating");
+	print_action(philo, GREEN"is eating");
 	pthread_mutex_lock(&philo->time_of_last_meal_mutex);
 	gettimeofday(&philo->time_of_last_meal, NULL);
 	pthread_mutex_unlock(&philo->time_of_last_meal_mutex);
@@ -69,7 +69,7 @@ static void	philo_eat(t_philo *philo)
 
 static void	philo_sleep(t_philo *philo)
 {
-	print_action(philo, "is sleeping");
+	print_action(philo,CYAN"is sleeping");
 	msleep(philo->time_to_sleep);
 }
 
@@ -81,7 +81,7 @@ static void	take_forks(t_philo *philo)
 		odd_philo_take_forks(philo);
 }
 
-void	print_action(t_philo *philo, char *action)
+void print_action(t_philo *philo, char *action)
 {
 	struct timeval	time;
 
@@ -91,7 +91,7 @@ void	print_action(t_philo *philo, char *action)
 	time.tv_sec -= philo->startup_time.tv_sec;
 	time.tv_usec -= philo->startup_time.tv_usec;
 	if (!philo->mutex_list->dead_philo_check)
-		printf("%ld\t%d %s\n", (time.tv_sec * 1000
+		printf("%ld\t%d %s\n"RESET, (time.tv_sec * 1000
 				+ time.tv_usec / 1000), philo->philo_id, action);
 	pthread_mutex_unlock(&philo->mutex_list->is_alive_mutex);
 	pthread_mutex_unlock(&philo->mutex_list->print_mutex);

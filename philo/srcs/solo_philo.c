@@ -29,7 +29,7 @@ static void	take_forks_solo(t_philo *philo)
 {
 	if (check_death(philo) == DEATH)
 		return ;
-	print_action(philo, "has taken a fork");
+	print_action(philo, YELLOW"has taken a fork");
 	while (check_death(philo) != DEATH)
 		msleep(5);
 	return ;

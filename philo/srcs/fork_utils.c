@@ -38,18 +38,18 @@ int	create_forks(t_data *data)
 void	even_philo_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
-	print_action(philo, "has taken a fork");
+	print_action(philo, YELLOW"has taken a fork");
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
-	print_action(philo, "has taken a fork");
+	print_action(philo, YELLOW"has taken a fork");
 	return ;
 }
 
 void	odd_philo_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
-	print_action(philo, "has taken a fork");
+	print_action(philo, YELLOW"has taken a fork");
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
-	print_action(philo, "has taken a fork");
+	print_action(philo, YELLOW"has taken a fork");
 	return ;
 }
 

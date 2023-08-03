@@ -124,6 +124,15 @@ void msleep(t_ms ms_to_sleep);
 int		compare_timeval(struct timeval *t1, struct timeval *t2);
 void	add_ms_tv(struct timeval *tv, long milliseconds);
 
+
+//----------- Print color -----------//
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define CYAN "\033[0;36m"
+# define RESET "\001\e[m\002"
+
 # define DEATH 666
 //----------- Error message -----------//
 # define INVALID_ARGC "philo: error: invalid number of arguments\n \

@@ -24,7 +24,7 @@ void	call_goal_achieve(t_philo *philo)
 
 void	call_death(t_philo *philo)
 {
-	print_action(philo, "died");
+	print_action(philo, RED"died");
 	pthread_mutex_lock(&philo->mutex_list->is_alive_mutex);
 	philo->mutex_list->dead_philo_check = true;
 	philo->is_alive = false;

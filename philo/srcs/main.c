@@ -19,10 +19,16 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	if (argc < 5 || argc > 6)
+		return (printf(INVALID_ARGC), EXIT_FAILURE);
+	if (check_null(argc, argv))
+		return (printf(NULL_ARGV), EXIT_FAILURE);
+	if (invalid_char(argc, argv))
+		return (printf(INVALID_ARGV), EXIT_FAILURE);
 	if (parse_argv(argc, argv, &data) == EXIT_FAILURE
 		|| init_philo_fork(&data) == EXIT_FAILURE
 		|| init_threads(&data) == EXIT_FAILURE)
-		return (printf (ERROR_INITIALISATION), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	msleep(data.time_to_die / 2, NULL);
 	return (monitoring(&data));
 }

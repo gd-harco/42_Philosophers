@@ -17,7 +17,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <malloc.h>
-# include <printf.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -107,6 +106,8 @@ int		init_threads(t_data *data);
 
 //########### PARSING_C ###########//
 int		parse_argv(int argc, char **argv, t_data *data);
+bool	invalid_char(int argc, char **argv);
+bool	check_null(int argc, char **argv);
 
 //########### PHILO_INIT_C ###########//
 int		init_philo_fork(t_data *data);
@@ -129,6 +130,8 @@ void	add_ms_tv(struct timeval *tv, long milliseconds);
 Usage: ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat] (optional)\n"
 # define INVALID_ARGV "philo: error: invalid char in argument detected\n"
-# define ERROR_INITIALISATION "philo: error: initialisation failed\n"
-
+# define NULL_ARGV "philo: error: null argument detected\n"
+# define NULL_DURATION "philo: error: duration of 0 is invalid\n"
+# define NO_PHILO "philo: error: no philosopher to simulate\n"
+# define NULL_GOAL "philo: error: an eat goal of 0 is invalid\n"
 #endif

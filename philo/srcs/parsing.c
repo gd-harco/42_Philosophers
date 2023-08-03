@@ -12,7 +12,6 @@
 
 #include "philo.h"
 
-static bool	invalid_char(int argc, char **argv);
 static int	init_mutex_list(t_data *data);
 
 /**
@@ -26,28 +25,31 @@ static int	init_mutex_list(t_data *data);
  */
 int	parse_argv(int argc, char **argv, t_data *data)
 {
-	if (argc < 5 || argc > 6)
-		return (printf(INVALID_ARGC), EXIT_FAILURE);
-	if (invalid_char(argc, argv))
-		return (printf(INVALID_ARGV), EXIT_FAILURE);
 	if (argc == 6)
 	{
 		data->philo_eat_goal = true;
 		data->nb_goal = ft_atoi(argv[5]);
+		if (data->nb_goal == 0)
+			return (printf(NULL_GOAL), EXIT_FAILURE);
 	}
 	else
 	{
 		data->philo_eat_goal = false;
 		data->nb_goal = -1;
 	}
-	init_mutex_list(data);
 	data->nb_of_philo = ft_atoi(argv[1]);
 	data->philo_dead = false;
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	if (data->nb_of_philo == 0)
+		return (printf(NO_PHILO), EXIT_FAILURE);
+	if (data->time_to_die == 0 || data->time_to_eat == 0
+		|| data->time_to_sleep == 0)
+		return (printf(NULL_DURATION), EXIT_FAILURE);
 	data->forks = NULL;
 	data->philos = NULL;
+	init_mutex_list(data);
 	return (EXIT_SUCCESS);
 }
 
@@ -58,7 +60,7 @@ int	parse_argv(int argc, char **argv, t_data *data)
  * @param argv
  * @return true if one invalid character is detected, false otherwise.
  */
-static bool	invalid_char(int argc, char **argv)
+bool	invalid_char(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -85,4 +87,18 @@ static int	init_mutex_list(t_data *data)
 	pthread_mutex_init(&data->mutex_list.is_alive_mutex, NULL);
 	pthread_mutex_init(&data->mutex_list.sync, NULL);
 	return (EXIT_SUCCESS);
+}
+
+bool	check_null(int argc, char **argv)
+{
+	int i;
+
+	i = 1;
+while (i < argc)
+	{
+		if (!argv[i][0])
+			return (true);
+		i++;
+	}
+	return (false);
 }

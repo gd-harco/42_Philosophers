@@ -129,6 +129,8 @@ void	add_ms_tv(struct timeval *tv, long milliseconds);
 //########### TAKE_RELEASE_FORK.C ###########//
 void	take_left_fork(t_philo *philo);
 void	take_right_fork(t_philo *philo);
+void	release_left_fork(t_philo *philo);
+void	release_right_fork(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 //----------- Print color -----------//

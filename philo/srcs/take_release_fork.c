@@ -58,13 +58,30 @@ void	take_right_fork(t_philo *philo)
 	}
 }
 
-void	release_forks(t_philo *philo)
+void	release_left_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left_fork->f_mutex);
 	philo->left_fork->fork_available = true;
 	pthread_mutex_unlock(&philo->left_fork->f_mutex);
+}
+
+void	release_right_fork(t_philo *philo)
+{
 	pthread_mutex_lock(&philo->right_fork->f_mutex);
 	philo->right_fork->fork_available = true;
 	pthread_mutex_unlock(&philo->right_fork->f_mutex);
-	print_action(philo, YELLOW"has released the forks");
+}
+
+void	release_forks(t_philo *philo)
+{
+	if (philo->philo_id % 2)
+	{
+		release_right_fork(philo);
+		release_left_fork(philo);
+	}
+	else
+	{
+		release_left_fork(philo);
+		release_right_fork(philo);
+	}
 }

@@ -76,9 +76,6 @@ static void	philo_sleep(t_philo *philo)
 
 static void	take_forks(t_philo *philo)
 {
-	// pthread_mutex_lock(&philo->mutex_list->print_mutex);
-	// printf("philo id : %d is taking fork\n", philo->philo_id);
-	// pthread_mutex_unlock(&philo->mutex_list->print_mutex);
 	if (philo->philo_id % 2)
 		even_philo_take_forks(philo);
 	else

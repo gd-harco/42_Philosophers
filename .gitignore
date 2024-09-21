@@ -1,4 +1,4 @@
-!/philo/
+
 # Prerequisites
 *.d
 
@@ -55,5 +55,3 @@ dkms.conf
 
 # IDE config files
 .idea
-
-philo
